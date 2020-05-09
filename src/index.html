@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFMA Map Viewer - HTML5 Canvas</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../external/DFMA-Viewer-HTML5/public/main.css">
+
+    <script src="../external/DFMA-Viewer-HTML5/public/pako.js"></script>
+    <script src="../external/DFMA-Viewer-HTML5/public/p5.js"></script>
+    <script src="../external/DFMA-Viewer-HTML5/public/site.js"></script>
+    <script src="../external/DFMA-Viewer-HTML5/public/parser.js"></script>
+    <script src="../external/DFMA-Viewer-HTML5/public/sketch.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>DFMA Map Viewer</h1>
+
+      <p>Drag and Drop an <em>FDF-MAP</em> file to open.</p>
+
+      <div id="canvas_container">
+          <!-- P5.js Canvas goes here -->
+      </div>
+      <span id="status"></span>
+      <p>Extracted Tiles from: <span id="fileName"></span></p>
+      <hr>
+      <h2>Controls:</h2>
+      <ul>
+          <li>Move Map
+              <ul>
+                  <li>Click and Drag</li>
+              </ul>
+          </li>
+          <li>Zoom<ul>
+                  <li>
+                      Zoom out: <kbd>-</kbd>
+                  </li>
+                  <li>Zoom in: <kbd>+</kbd> or <kbd>=</kbd></li>
+              </ul>
+          </li>
+          <li>Change Layer <ul>
+                  <li>Up: <kbd>&lt;</kbd> or <kbd>,</kbd></li>
+                  <li>Down: <kbd>&gt;</kbd> or <kbd>.</kbd></li>
+              </ul>
+          </li>
+      </ul>
+  </body>
+</html>

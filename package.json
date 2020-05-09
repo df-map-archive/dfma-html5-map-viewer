@@ -5,7 +5,13 @@
   "main": "viewer.js",
   "scripts": {
     "test": "mocha",
-    "build": "./build-script.sh"
+    "parcel": "parcel build src/index.html external/DFMA-Viewer-HTML5/file.fdf-map",
+    "build": "./build-script.sh",
+    "start": "parcel src/index.html external/DFMA-Viewer-HTML5/file.fdf-map"
+  },
+  "staticFiles": {
+    "staticPath": "external/DFMA-Viewer-HTML5/public",
+    "watcherGlob": "*.fdf-map"
   },
   "repository": {
     "type": "git",
@@ -32,5 +38,9 @@
   "bugs": {
     "url": "https://github.com/df-map-archive/dfma-html5-map-viewer/issues"
   },
-  "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme"
+  "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.3.1"
+  }
 }
