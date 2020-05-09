@@ -1,0 +1,22 @@
+name: Deploy via FTP
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - run: npm run build
+    - name: ftp upload
+      uses: sebastianpopp/ftp-action@releases/v2
+      with:
+        host: "ftp.mkv25.net"
+        user: ${{ secrets.FTP_SYNC_USERNAME }}
+        password: ${{ secrets.FTP_SYNC_PASSWORD }}
+        localDir: "build"
