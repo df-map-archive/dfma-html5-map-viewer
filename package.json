@@ -4,7 +4,8 @@
   "description": "Home for development of a new HTML5 Map Viewer for Dwarf Fortress.",
   "main": "viewer.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "./build-script.sh"
   },
   "repository": {
     "type": "git",
