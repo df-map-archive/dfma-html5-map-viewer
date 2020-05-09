@@ -1,3 +1,3 @@
 [submodule "external/DFMA-Viewer-HTML5"]
 	path = external/DFMA-Viewer-HTML5
-	url = git@github.com:JacobRBlomquist/DFMA-Viewer-HTML5.git
+	url = https://github.com/JacobRBlomquist/DFMA-Viewer-HTML5.git
