@@ -5,7 +5,7 @@
   "main": "viewer.js",
   "scripts": {
     "test": "mocha",
-    "parcel": "parcel build src/index.html external/DFMA-Viewer-HTML5/file.fdf-map",
+    "parcel": "parcel build src/index.html external/DFMA-Viewer-HTML5/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
     "start": "parcel src/index.html external/DFMA-Viewer-HTML5/file.fdf-map",
     "preinstall": "npm run submodules:init && npm run submodules:clean",
