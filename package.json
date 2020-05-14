@@ -40,7 +40,12 @@
   },
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
   }
 }
