@@ -4,6 +4,7 @@
   "description": "Home for development of a new HTML5 Map Viewer for Dwarf Fortress.",
   "main": "viewer.js",
   "scripts": {
+    "setup": "./scripts/setup/installComposer.sh",
     "test": "mocha",
     "parcel": "parcel build src/index.html external/DFMA-Viewer-HTML5/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
