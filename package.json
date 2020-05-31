@@ -11,7 +11,8 @@
     "start": "parcel src/index.html external/DFMA-Viewer-HTML5/file.fdf-map",
     "preinstall": "npm run submodules:init && npm run submodules:clean",
     "submodules:init": "git submodule init && git submodule update",
-    "submodules:clean": "git submodule foreach --recursive git checkout ."
+    "submodules:clean": "git submodule foreach --recursive git checkout .",
+    "submodules:update": "git submodule foreach --recursive git pull origin master"
   },
   "staticFiles": {
     "staticPath": "external/DFMA-Viewer-HTML5/public",
