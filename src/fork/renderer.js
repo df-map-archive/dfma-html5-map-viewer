@@ -1,5 +1,6 @@
 const pako = require('pako')
 const p5 = require('./p5adapter')
+const { MapData } = require('./parser')
 
 let dfMapData
 let idx = 0
@@ -310,7 +311,7 @@ function fileDropCB (file) {
     const data = pako.inflate(arr)
     const res = new DataView(data.buffer)
     // bytes = new DataView(data.buffer);
-    dfMapData = new p5.MapData()
+    dfMapData = new MapData()
     dfMapData.parse(res)
   }
 
