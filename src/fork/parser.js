@@ -1,8 +1,4 @@
-'use strict'
-
-if (typeof module !== 'undefined' && typeof require !== 'undefined') {
-  window.pako = require('pako')
-}
+const pako = require('pako')
 
 /**
  * Object which stores all data for a specific map
@@ -217,7 +213,7 @@ async function fetchAndDecompressMapData (path) {
 
   const arr = new Uint8Array(ab)
   // inflate data
-  const data = window.pako.inflate(arr)
+  const data = pako.inflate(arr)
   const ret = new DataView(data.buffer)
   // bytes = new DataView(data.buffer);
   return ret

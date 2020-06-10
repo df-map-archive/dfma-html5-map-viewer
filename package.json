@@ -5,7 +5,8 @@
   "main": "viewer.js",
   "scripts": {
     "setup": "./scripts/setup/installComposer.sh",
-    "test": "mocha",
+    "test": "standard && mocha",
+    "lint": "standard --fix",
     "parcel": "parcel build src/index.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
     "start": "parcel src/index.html src/static/file.fdf-map"
