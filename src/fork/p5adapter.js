@@ -3,12 +3,14 @@ function adaptToObject(fnName, object) {
 }
 
 const methodsToAdapt = [
+  'alert',
   'background',
   'createCanvas',
   'createImage',
   'fill',
   'floor',
   'image',
+  'keyIsDown',
   'loadFromURL',
   'max',
   'noFill',

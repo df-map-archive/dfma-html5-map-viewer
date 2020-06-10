@@ -1,3 +1,4 @@
+const pako = require('pako')
 const p5 = require('./p5adapter')
 
 let dfMapData
@@ -81,8 +82,8 @@ function draw () {
     const selectorHeight = dfMapData.tileHeight * scale
 
     // draw selector
-    const curCenterX = p5.width / 2 - imageX
-    const curCenterY = p5.height / 2 - imageY
+    const curCenterX = window.width / 2 - imageX
+    const curCenterY = window.height / 2 - imageY
     const selectedX = p5.floor(curCenterX / (dfMapData.tileWidth * scale))
     const selectedY = p5.floor(curCenterY / (dfMapData.tileHeight * scale))
 
@@ -134,19 +135,19 @@ function draw () {
     if (dragged) {
       p5.fill(0, 0, 0, 200)
       p5.textFont('Helvetica', 30)
-      p5.textAlign(p5.CENTER, p5.CENTER)
-      p5.rect(0, 0, p5.width, p5.height)
+      p5.textAlign(window.CENTER, window.CENTER)
+      p5.rect(0, 0, window.width, window.height)
       p5.fill(255)
-      p5.text('DROP FDF-MAP FILE HERE', p5.width / 2, p5.height / 2)
+      p5.text('DROP FDF-MAP FILE HERE', window.width / 2, window.height / 2)
     }
   } else {
     p5.background(0)
     p5.textFont('Helvetica', 20)
-    p5.textAlign(p5.CENTER, p5.CENTER)
+    p5.textAlign(window.CENTER, window.CENTER)
     p5.stroke(255)
     p5.fill(255)
 
-    p5.text('Loading...', p5.width / 2, p5.height / 2)
+    p5.text('Loading...', window.width / 2, window.height / 2)
   }
 }
 
@@ -157,14 +158,14 @@ function zoom () {
   let zoomed = false
   // ZOOM
 
-  if (p5.key === '=' || p5.key === '+') {
+  if (window.key === '=' || window.key === '+') {
     scale *= jump
     if (scale > 20) { scale = 20 }
 
     zoomed = true
   }
 
-  if (p5.key === '-') {
+  if (window.key === '-') {
     scale /= jump
     if (scale < 0.01) { scale = 0.01 }
 
@@ -173,8 +174,8 @@ function zoom () {
 
   // center zoom
   if (zoomed) {
-    const curCenterX = p5.width / 2 - imageX
-    const curCenterY = p5.height / 2 - imageY
+    const curCenterX = window.width / 2 - imageX
+    const curCenterY = window.height / 2 - imageY
 
     const ratioX = curCenterX / imgWidth
     const ratioY = curCenterY / imgHeight
@@ -182,8 +183,8 @@ function zoom () {
     imgWidth = originalImgWidth * scale
     imgHeight = originalImgHeight * scale
 
-    imageX = p5.width / 2 - imgWidth * ratioX
-    imageY = p5.height / 2 - imgHeight * ratioY
+    imageX = window.width / 2 - imgWidth * ratioX
+    imageY = window.height / 2 - imgHeight * ratioY
     originalImgWidth = 0
   }
 }
@@ -215,8 +216,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
   imgWidth = originalImgWidth * scale
   imgHeight = originalImgHeight * scale
 
-  imageX = p5.width / 2 - dfMapData.tileWidth * scale * xTile + dfMapData.tileWidth / 2 * scale
-  imageY = p5.height / 2 - dfMapData.tileHeight * scale * yTile + dfMapData.tileHeight / 2 * scale
+  imageX = window.width / 2 - dfMapData.tileWidth * scale * xTile + dfMapData.tileWidth / 2 * scale
+  imageY = window.height / 2 - dfMapData.tileHeight * scale * yTile + dfMapData.tileHeight / 2 * scale
 }
 
 /**
@@ -225,8 +226,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
  * Called whenever the mouse is pressed
  */
 function mousePressed () {
-  clickX = p5.mouseX
-  clickY = p5.mouseY
+  clickX = window.mouseX
+  clickY = window.mouseY
 }
 
 /**
@@ -235,10 +236,10 @@ function mousePressed () {
  * Called whenever the mouse is dragged
  */
 function mouseDragged () {
-  const xDif = (p5.mouseX - clickX)
-  const yDif = (p5.mouseY - clickY)
-  clickX = p5.mouseX
-  clickY = p5.mouseY
+  const xDif = (window.mouseX - clickX)
+  const yDif = (window.mouseY - clickY)
+  clickX = window.mouseX
+  clickY = window.mouseY
   imageX += xDif
   imageY += yDif
 }
@@ -248,11 +249,11 @@ function mouseDragged () {
  * called whenever a key is pressed
  */
 function keyPressed () {
-  if (p5.key === ',' || p5.key === '<') {
+  if (window.key === ',' || window.key === '<') {
     idx++
     if (idx >= dfMapData.numLayers) { idx = dfMapData.numLayers - 1 }
   }
-  if (p5.key === '.' || p5.key === '>') {
+  if (window.key === '.' || window.key === '>') {
     idx--
     if (idx < 0) { idx = 0 }
   }
@@ -302,11 +303,11 @@ function fileDropCB (file) {
   originalImgWidth = 0
   originalImgHeight = 0
 
-  const reader = new p5.FileReader()
+  const reader = new window.FileReader()
   reader.onload = function () {
     const arr = new Uint8Array(reader.result)
     // inflate data
-    const data = p5.pako.inflate(arr)
+    const data = pako.inflate(arr)
     const res = new DataView(data.buffer)
     // bytes = new DataView(data.buffer);
     dfMapData = new p5.MapData()
