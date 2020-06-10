@@ -1,6 +1,7 @@
-const pako = require('../external/DFMA-Viewer-HTML5/public/pako.js')
-const p5 = require('../external/DFMA-Viewer-HTML5/public/p5.min.js')
-const { parser, renderer } = require('../external/DFMA-Viewer-HTML5')
+const pako = require('pako')
+const p5 = require('p5')
+const parser = require('./fork/parser')
+const renderer = require('./fork/renderer')
 
 function setup() {} {
   if (typeof window !== undefined) {

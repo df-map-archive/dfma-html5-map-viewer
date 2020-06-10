@@ -1,7 +1,7 @@
 'use strict'
 
 if (typeof module !== 'undefined' && typeof require !== 'undefined') {
-  window.pako = require('./pako')
+  window.pako = require('pako')
 }
 
 /**

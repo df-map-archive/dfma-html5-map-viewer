@@ -6,12 +6,12 @@
   "scripts": {
     "setup": "./scripts/setup/installComposer.sh",
     "test": "mocha",
-    "parcel": "parcel build src/index.html external/DFMA-Viewer-HTML5/file.fdf-map --public-url ./",
+    "parcel": "parcel build src/index.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
-    "start": "parcel src/index.html external/DFMA-Viewer-HTML5/file.fdf-map"
+    "start": "parcel src/index.html src/static/file.fdf-map"
   },
   "staticFiles": {
-    "staticPath": "external/DFMA-Viewer-HTML5/public",
+    "staticPath": "src/static",
     "watcherGlob": "*.fdf-map"
   },
   "repository": {
@@ -41,14 +41,14 @@
   },
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "p5": "^1.0.0",
-    "pako": "^1.0.11",
-    "parcel-bundler": "^1.12.4",
-    "parcel-plugin-static-files-copy": "^2.3.1"
+    "pako": "^1.0.11"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.3.1",
+    "babel-polyfill": "^6.26.0"
   }
 }
