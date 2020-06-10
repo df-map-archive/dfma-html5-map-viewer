@@ -1,4 +1,4 @@
-'use strict'
+const p5 = require('./p5adapter')
 
 let dfMapData
 let idx = 0
@@ -13,7 +13,7 @@ function preload () {
   document.getElementById('fileName').innerText = fName
 
   // fetch local file
-  dfMapData = window.loadFromURL(fName).then(e => {
+  dfMapData = p5.loadFromURL(fName).then(e => {
     dfMapData = e
   })
 }
@@ -24,15 +24,15 @@ function preload () {
  * Occurs once before main loop
  */
 function setup () {
-  const canvas = window.createCanvas(800, 600)
+  const canvas = p5.createCanvas(800, 600)
   canvas.parent('canvas_container')
   canvas.dragOver(fileHoverCB)
   canvas.dragLeave(fileHoverLeaveCB)
   canvas.drop(fileDropCB)
-  window.background(0)
-  window.textFont('Helvetica', 15)
-  window.textAlign(window.CENTER, window.CENTER)
-  window.pixelDensity(1)
+  p5.background(0)
+  p5.textFont('Helvetica', 15)
+  p5.textAlign(p5.CENTER, p5.CENTER)
+  p5.pixelDensity(1)
 }
 
 // GLOBALS
@@ -67,7 +67,7 @@ function draw () {
       // return;
     }
 
-    window.background(0)// Make background black
+    p5.background(0)// Make background black
 
     if (dfMapData.mapData[idx] !== undefined && dfMapData.mapData[idx].loaded === false && !dfMapData.mapData[idx].loading) {
       dfMapData.getLayer(idx)
@@ -75,34 +75,34 @@ function draw () {
     }
     if (dfMapData.mapData[idx] === undefined || dfMapData.mapData[idx].img === undefined) { return }
     const img = dfMapData.getLayer(idx)
-    window.image(img, imageX, imageY, imgWidth, imgHeight)
+    p5.image(img, imageX, imageY, imgWidth, imgHeight)
 
     const selectorWidth = dfMapData.tileWidth * scale
     const selectorHeight = dfMapData.tileHeight * scale
 
     // draw selector
-    const curCenterX = window.width / 2 - imageX
-    const curCenterY = window.height / 2 - imageY
-    const selectedX = window.floor(curCenterX / (dfMapData.tileWidth * scale))
-    const selectedY = window.floor(curCenterY / (dfMapData.tileHeight * scale))
+    const curCenterX = p5.width / 2 - imageX
+    const curCenterY = p5.height / 2 - imageY
+    const selectedX = p5.floor(curCenterX / (dfMapData.tileWidth * scale))
+    const selectedY = p5.floor(curCenterY / (dfMapData.tileHeight * scale))
 
-    window.stroke(255, 0, 0)
-    window.strokeWeight(window.max(scale, 2))
-    window.noFill()
-    window.rect(imageX + selectorWidth * selectedX, imageY + selectorHeight * selectedY, selectorWidth, selectorHeight)
-    window.stroke(255, 255, 0)
+    p5.stroke(255, 0, 0)
+    p5.strokeWeight(p5.max(scale, 2))
+    p5.noFill()
+    p5.rect(imageX + selectorWidth * selectedX, imageY + selectorHeight * selectedY, selectorWidth, selectorHeight)
+    p5.stroke(255, 255, 0)
     const crosshairSize = 5
-    window.strokeWeight(2)
-    window.line(window.width / 2 - crosshairSize, window.height / 2, window.width / 2 + crosshairSize, window.height / 2)
-    window.line(window.width / 2, window.height / 2 - crosshairSize, window.width / 2, window.height / 2 + crosshairSize)
+    p5.strokeWeight(2)
+    p5.line(p5.width / 2 - crosshairSize, p5.height / 2, p5.width / 2 + crosshairSize, p5.height / 2)
+    p5.line(p5.width / 2, p5.height / 2 - crosshairSize, p5.width / 2, p5.height / 2 + crosshairSize)
 
     // text
-    window.stroke(255)
-    window.noFill()
-    window.strokeWeight(1)
-    window.textFont('Helvetica', 12)
-    window.textAlign(window.LEFT)
-    window.text('Layer: ' + dfMapData.mapData[idx].depth, 20, 20)
+    p5.stroke(255)
+    p5.noFill()
+    p5.strokeWeight(1)
+    p5.textFont('Helvetica', 12)
+    p5.textAlign(p5.LEFT)
+    p5.text('Layer: ' + dfMapData.mapData[idx].depth, 20, 20)
 
     // debug code for seeing all tiles
     //       loadPixels();
@@ -132,21 +132,21 @@ function draw () {
     //      updatePixels();
 
     if (dragged) {
-      window.fill(0, 0, 0, 200)
-      window.textFont('Helvetica', 30)
-      window.textAlign(window.CENTER, window.CENTER)
-      window.rect(0, 0, window.width, window.height)
-      window.fill(255)
-      window.text('DROP FDF-MAP FILE HERE', window.width / 2, window.height / 2)
+      p5.fill(0, 0, 0, 200)
+      p5.textFont('Helvetica', 30)
+      p5.textAlign(p5.CENTER, p5.CENTER)
+      p5.rect(0, 0, p5.width, p5.height)
+      p5.fill(255)
+      p5.text('DROP FDF-MAP FILE HERE', p5.width / 2, p5.height / 2)
     }
   } else {
-    window.background(0)
-    window.textFont('Helvetica', 20)
-    window.textAlign(window.CENTER, window.CENTER)
-    window.stroke(255)
-    window.fill(255)
+    p5.background(0)
+    p5.textFont('Helvetica', 20)
+    p5.textAlign(p5.CENTER, p5.CENTER)
+    p5.stroke(255)
+    p5.fill(255)
 
-    window.text('Loading...', window.width / 2, window.height / 2)
+    p5.text('Loading...', p5.width / 2, p5.height / 2)
   }
 }
 
@@ -157,14 +157,14 @@ function zoom () {
   let zoomed = false
   // ZOOM
 
-  if (window.key === '=' || window.key === '+') {
+  if (p5.key === '=' || p5.key === '+') {
     scale *= jump
     if (scale > 20) { scale = 20 }
 
     zoomed = true
   }
 
-  if (window.key === '-') {
+  if (p5.key === '-') {
     scale /= jump
     if (scale < 0.01) { scale = 0.01 }
 
@@ -173,8 +173,8 @@ function zoom () {
 
   // center zoom
   if (zoomed) {
-    const curCenterX = window.width / 2 - imageX
-    const curCenterY = window.height / 2 - imageY
+    const curCenterX = p5.width / 2 - imageX
+    const curCenterY = p5.height / 2 - imageY
 
     const ratioX = curCenterX / imgWidth
     const ratioY = curCenterY / imgHeight
@@ -182,8 +182,8 @@ function zoom () {
     imgWidth = originalImgWidth * scale
     imgHeight = originalImgHeight * scale
 
-    imageX = window.width / 2 - imgWidth * ratioX
-    imageY = window.height / 2 - imgHeight * ratioY
+    imageX = p5.width / 2 - imgWidth * ratioX
+    imageY = p5.height / 2 - imgHeight * ratioY
     originalImgWidth = 0
   }
 }
@@ -215,8 +215,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
   imgWidth = originalImgWidth * scale
   imgHeight = originalImgHeight * scale
 
-  imageX = window.width / 2 - dfMapData.tileWidth * scale * xTile + dfMapData.tileWidth / 2 * scale
-  imageY = window.height / 2 - dfMapData.tileHeight * scale * yTile + dfMapData.tileHeight / 2 * scale
+  imageX = p5.width / 2 - dfMapData.tileWidth * scale * xTile + dfMapData.tileWidth / 2 * scale
+  imageY = p5.height / 2 - dfMapData.tileHeight * scale * yTile + dfMapData.tileHeight / 2 * scale
 }
 
 /**
@@ -225,8 +225,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
  * Called whenever the mouse is pressed
  */
 function mousePressed () {
-  clickX = window.mouseX
-  clickY = window.mouseY
+  clickX = p5.mouseX
+  clickY = p5.mouseY
 }
 
 /**
@@ -235,10 +235,10 @@ function mousePressed () {
  * Called whenever the mouse is dragged
  */
 function mouseDragged () {
-  const xDif = (window.mouseX - clickX)
-  const yDif = (window.mouseY - clickY)
-  clickX = window.mouseX
-  clickY = window.mouseY
+  const xDif = (p5.mouseX - clickX)
+  const yDif = (p5.mouseY - clickY)
+  clickX = p5.mouseX
+  clickY = p5.mouseY
   imageX += xDif
   imageY += yDif
 }
@@ -248,31 +248,31 @@ function mouseDragged () {
  * called whenever a key is pressed
  */
 function keyPressed () {
-  if (window.key === ',' || window.key === '<') {
+  if (p5.key === ',' || p5.key === '<') {
     idx++
     if (idx >= dfMapData.numLayers) { idx = dfMapData.numLayers - 1 }
   }
-  if (window.key === '.' || window.key === '>') {
+  if (p5.key === '.' || p5.key === '>') {
     idx--
     if (idx < 0) { idx = 0 }
   }
 
   let modifier = 1
 
-  if (window.keyIsDown(90)) { //  'z'
+  if (p5.keyIsDown(90)) { //  'z'
     modifier = 10
   }
 
-  if (window.keyIsDown(102)) { // number 6
+  if (p5.keyIsDown(102)) { // number 6
     imageX -= dfMapData.tileWidth * scale * modifier
   }
-  if (window.keyIsDown(100)) { // number 4
+  if (p5.keyIsDown(100)) { // number 4
     imageX += dfMapData.tileWidth * scale * modifier
   }
-  if (window.keyIsDown(98)) { // number 2
+  if (p5.keyIsDown(98)) { // number 2
     imageY -= dfMapData.tileHeight * scale * modifier
   }
-  if (window.keyIsDown(104)) { // number 8
+  if (p5.keyIsDown(104)) { // number 8
     imageY += dfMapData.tileHeight * scale * modifier
   }
 }
@@ -296,20 +296,20 @@ function fileHoverLeaveCB () {
  */
 function fileDropCB (file) {
   if (!file.name.endsWith('fdf-map')) {
-    window.alert("Invalid File Format! You must submit an 'fdf-map' file!")
+    p5.alert("Invalid File Format! You must submit an 'fdf-map' file!")
   }
 
   originalImgWidth = 0
   originalImgHeight = 0
 
-  const reader = new window.FileReader()
+  const reader = new p5.FileReader()
   reader.onload = function () {
     const arr = new Uint8Array(reader.result)
     // inflate data
-    const data = window.pako.inflate(arr)
+    const data = p5.pako.inflate(arr)
     const res = new DataView(data.buffer)
     // bytes = new DataView(data.buffer);
-    dfMapData = new window.MapData()
+    dfMapData = new p5.MapData()
     dfMapData.parse(res)
   }
 
@@ -318,17 +318,15 @@ function fileDropCB (file) {
   document.getElementById('fileName').innerText = file.name
 }
 
-if (typeof module !== 'undefined') {
-  module.exports = {
-    fileDropCB,
-    fileHoverLeaveCB,
-    keyPressed,
-    mouseDragged,
-    mousePressed,
-    zoom,
-    draw,
-    setup,
-    preload,
-    zoomTo
-  }
+module.exports = {
+  fileDropCB,
+  fileHoverLeaveCB,
+  keyPressed,
+  mouseDragged,
+  mousePressed,
+  zoom,
+  draw,
+  setup,
+  preload,
+  zoomTo
 }

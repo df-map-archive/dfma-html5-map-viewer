@@ -1,4 +1,6 @@
 const pako = require('pako')
+const p5 = require('./p5adapter')
+const fetch = window.fetch
 
 /**
  * Object which stores all data for a specific map
@@ -55,7 +57,7 @@ function MapData () {
     const imgWidth = imgTWidth * this.tileWidth
     const imgHeight = imgTHeight * this.tileHeight
 
-    const curLayer = window.createImage(imgWidth, imgHeight)
+    const curLayer = p5.createImage(imgWidth, imgHeight)
     curLayer.loadPixels()
 
     // blit whole pix
@@ -183,7 +185,7 @@ function MapData () {
       return a.depth - b.depth
     })
 
-    console.log('Parsed')
+    console.log('[Parser] Parsed', this.mapData.length, 'layers')
     this.loaded = true
   }
 }
@@ -208,7 +210,7 @@ async function fetchAndDecompressMapData (path) {
   //     });
 
   const res =
-    await window.fetch(path, { method: 'GET', headers: { Origin: 'https://mkv25.net' } })
+    await fetch(path, { method: 'GET', headers: { Origin: 'https://mkv25.net' } })
   const ab = await res.arrayBuffer()
 
   const arr = new Uint8Array(ab)
