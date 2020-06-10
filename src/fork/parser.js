@@ -233,7 +233,7 @@ async function fetchAndDecompressMapData (path) {
  *
  * returns: a mapData object that's ready to have its layers queried with 'mapData.getLayer();
  */
-async function loadFromURL (path) {
+async function loadMapFromURL (path) {
   const md = new MapData()
   try {
     const loadedData = await fetchAndDecompressMapData(path)
@@ -248,6 +248,6 @@ async function loadFromURL (path) {
 if (typeof module !== 'undefined') {
   module.exports = {
     MapData,
-    loadFromURL
+    loadMapFromURL
   }
 }

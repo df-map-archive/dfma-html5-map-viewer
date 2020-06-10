@@ -1,6 +1,6 @@
 const pako = require('pako')
 const p5 = require('./p5adapter')
-const { MapData } = require('./parser')
+const { loadMapFromURL } = require('./parser')
 
 let dfMapData
 let idx = 0
@@ -15,7 +15,7 @@ function preload () {
   document.getElementById('fileName').innerText = fName
 
   // fetch local file
-  dfMapData = p5.loadFromURL(fName).then(e => {
+  dfMapData = loadMapFromURL(fName).then(e => {
     dfMapData = e
   })
 }
@@ -33,7 +33,7 @@ function setup () {
   canvas.drop(fileDropCB)
   p5.background(0)
   p5.textFont('Helvetica', 15)
-  p5.textAlign(p5.CENTER, p5.CENTER)
+  p5.textAlign(window.CENTER, window.CENTER)
   p5.pixelDensity(1)
 }
 
@@ -95,15 +95,15 @@ function draw () {
     p5.stroke(255, 255, 0)
     const crosshairSize = 5
     p5.strokeWeight(2)
-    p5.line(p5.width / 2 - crosshairSize, p5.height / 2, p5.width / 2 + crosshairSize, p5.height / 2)
-    p5.line(p5.width / 2, p5.height / 2 - crosshairSize, p5.width / 2, p5.height / 2 + crosshairSize)
+    p5.line(window.width / 2 - crosshairSize, window.height / 2, window.width / 2 + crosshairSize, window.height / 2)
+    p5.line(window.width / 2, window.height / 2 - crosshairSize, window.width / 2, window.height / 2 + crosshairSize)
 
     // text
     p5.stroke(255)
     p5.noFill()
     p5.strokeWeight(1)
     p5.textFont('Helvetica', 12)
-    p5.textAlign(p5.LEFT)
+    p5.textAlign(window.LEFT)
     p5.text('Layer: ' + dfMapData.mapData[idx].depth, 20, 20)
 
     // debug code for seeing all tiles
@@ -298,7 +298,7 @@ function fileHoverLeaveCB () {
  */
 function fileDropCB (file) {
   if (!file.name.endsWith('fdf-map')) {
-    p5.alert("Invalid File Format! You must submit an 'fdf-map' file!")
+    window.alert("Invalid File Format! You must submit an 'fdf-map' file!")
   }
 
   originalImgWidth = 0

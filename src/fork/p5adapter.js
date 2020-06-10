@@ -11,7 +11,6 @@ const methodsToAdapt = [
   'floor',
   'image',
   'keyIsDown',
-  'loadFromURL',
   'max',
   'noFill',
   'line',
