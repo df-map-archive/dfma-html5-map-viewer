@@ -48,7 +48,7 @@ let imgHeight = 0
 let clickX = 0
 let clickY = 0
 
-let scale = 0.25
+let scale = 1.00
 const jump = 1.05
 
 /**
@@ -99,12 +99,16 @@ function draw () {
     p5.line(window.width / 2, window.height / 2 - crosshairSize, window.width / 2, window.height / 2 + crosshairSize)
 
     // text
+    const textLeftOffset = 15
+    const textTopOffset = 20
     p5.stroke(255)
     p5.noFill()
     p5.strokeWeight(1)
     p5.textFont('Helvetica', 12)
     p5.textAlign(window.LEFT)
-    p5.text('Layer: ' + dfMapData.mapData[idx].depth, 20, 20)
+    p5.text('Layer: ' + dfMapData.mapData[idx].depth, textLeftOffset, textTopOffset)
+    p5.text('Zoom: ' + scale.toFixed(2), textLeftOffset, textTopOffset + 20)
+    p5.text(`X: ${selectedX}, Y: ${selectedY}`, textLeftOffset, textTopOffset + 40)
 
     // debug code for seeing all tiles
     //       loadPixels();
