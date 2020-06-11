@@ -10,9 +10,9 @@ function setup () {
   }
 
   if (typeof document !== 'undefined') {
+
     rewriteMapLinks(document, renderer)
-    const mapInfo = readMapInfoFromDocument(document)
-    console.log('[Map Viewer]', mapInfo)
+    setupStartingMap(document, renderer)
   }
 }
 
@@ -28,6 +28,20 @@ function rewriteMapLinks(document, renderer) {
   })
 }
 
+async function setupStartingMap(document, renderer) {
+  const mapInfo = readMapInfoFromDocument(document)
+  console.log('[Map Viewer]', mapInfo)
+
+  const { setMapByURL, zoomTo } = renderer
+  const map = await setMapByURL(mapInfo.mapLink)
+  zoomTo(
+    mapInfo.startLevel,
+    mapInfo.startZoom,
+    mapInfo.startX / map.tileWidth,
+    mapInfo.startY / map.tileHeight
+  )
+}
+
 function readMapInfoFromDocument(parent) {
   const defaultMap = Array.from(parent.getElementsByTagName('default-map'))[0]
 
@@ -38,10 +52,10 @@ function readMapInfoFromDocument(parent) {
   const mapInfo = {
     mapLink: readTag('map-link'),
     mapDescription: readTag('map-description'),
-    startLevel: readTag('start-level'),
-    startX: readTag('start-x'),
-    startY: readTag('start-y'),
-    startZoom: readTag('start-zoom'),
+    startLevel: Number.parseInt(readTag('start-level')),
+    startX: Number.parseInt(readTag('start-x')),
+    startY: Number.parseInt(readTag('start-y')),
+    startZoom: Number.parseFloat(readTag('start-zoom')),
     startOrientation: readTag('start-orientation'),
     poiTitle: readTag('poi-title'),
     poiDescription: readTag('poi-description'),
