@@ -1,14 +1,29 @@
-const pako = require('../external/DFMA-Viewer-HTML5/public/pako.js')
-const p5 = require('../external/DFMA-Viewer-HTML5/public/p5.min.js')
-const { parser, renderer } = require('../external/DFMA-Viewer-HTML5')
+const p5 = require('p5')
+const parser = require('./fork/parser')
+const renderer = require('./fork/renderer')
 
-function setup() {} {
-  if (typeof window !== undefined) {
-    window.pako = pako
+function setup () {
+  if (typeof window !== 'undefined') {
     window.p5 = p5
     Object.assign(window, parser)
     Object.assign(window, renderer)
   }
+
+  if (typeof document !== 'undefined') {
+    rewriteMapLinks(document, renderer)
+  }
 }
 
-module.exports = setup
+function rewriteMapLinks(document, renderer) {
+  const { setMapByURL } = renderer
+  const mapLinks = Array.from(document.getElementsByTagName('map-link'))
+  mapLinks.forEach(mapLink => {
+    const href = mapLink.innerText
+    mapLink.onclick = () => {
+      console.log('[map-viewer] Map link clicked:', href)
+      setMapByURL(href)
+    }
+  })
+}
+
+setup()
