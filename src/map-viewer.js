@@ -11,6 +11,8 @@ function setup () {
 
   if (typeof document !== 'undefined') {
     rewriteMapLinks(document, renderer)
+    const mapInfo = readMapInfoFromDocument(document)
+    console.log('[Map Viewer]', mapInfo)
   }
 }
 
@@ -24,6 +26,29 @@ function rewriteMapLinks(document, renderer) {
       setMapByURL(href)
     }
   })
+}
+
+function readMapInfoFromDocument(parent) {
+  const defaultMap = Array.from(parent.getElementsByTagName('default-map'))[0]
+
+  function readTag(tagName) {
+    return defaultMap.getElementsByTagName(tagName)[0].innerText
+  }
+
+  const mapInfo = {
+    mapLink: readTag('map-link'),
+    mapDescription: readTag('map-description'),
+    startLevel: readTag('start-level'),
+    startX: readTag('start-x'),
+    startY: readTag('start-y'),
+    startZoom: readTag('start-zoom'),
+    startOrientation: readTag('start-orientation'),
+    poiTitle: readTag('poi-title'),
+    poiDescription: readTag('poi-description'),
+    poiAuthor: readTag('poi-author')
+  }
+
+  return mapInfo
 }
 
 setup()
