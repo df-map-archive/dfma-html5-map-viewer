@@ -7,7 +7,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./static/main.css">
-    <script src="./map-viewer.js"></script>
     
   </head>
   <body>
@@ -15,6 +14,12 @@
       <h1>DFMA Map Viewer</h1>
 
       <p>Drag and Drop an <em>FDF-MAP</em> file to open.</p>
+
+      <ul id="sample-maps">
+          <li><map-link>/maps/2008-02/alexencandar-Fortress of Rage-region1-1053-16119.fdf-map</map-link></li>
+          <li><map-link>/maps/2010-03/memory-Gulfobeyed-region10-63-26010.fdf-map</map-link></li>
+          <li><map-link>/maps/2014-06/ajr_-Mountain of Immortal-region1-222-7581.fdf-map</map-link></li>
+      </ul>
 
       <div id="canvas_container">
           <!-- P5.js Canvas goes here -->
@@ -42,5 +47,6 @@
               </ul>
           </li>
       </ul>
+      <script src="./map-viewer.js"></script>
   </body>
 </html>

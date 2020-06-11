@@ -96,3 +96,11 @@ kbd
     position: relative;
     overflow: hidden;
 }
+
+map-link {
+    cursor: pointer
+}
+
+map-link:hover {
+    color: #2266ff;
+}

@@ -8,6 +8,20 @@ function setup () {
     Object.assign(window, parser)
     Object.assign(window, renderer)
   }
+
+  if (typeof document !== 'undefined') {
+    rewriteMapLinks(document, renderer)
+  }
+}
+
+function rewriteMapLinks(document, renderer) {
+  const mapLinks = Array.from(document.getElementsByTagName('map-link'))
+  mapLinks.forEach(mapLink => {
+    const href = mapLink.innerText
+    mapLink.onclick = () => {
+      console.log('[map-viewer] Map link clicked:', href)
+    }
+  })
 }
 
 setup()
