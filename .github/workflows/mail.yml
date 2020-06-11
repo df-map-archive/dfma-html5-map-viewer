@@ -12,7 +12,7 @@ jobs:
         node-version: [12.x]
     steps:
     - uses: actions/checkout@v2
-    - run: npm run build
+    - run: npm run build -s
     - name: ftp upload
       uses: sebastianpopp/ftp-action@releases/v2
       with:
