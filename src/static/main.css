@@ -104,3 +104,64 @@ map-link {
 map-link:hover {
     color: #2266ff;
 }
+
+default-map {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5em;
+    background: #eee;
+    padding: 0.5em;
+}
+
+default-map > * {
+    display: inline-block;
+    flex: 1 1;
+}
+
+default-map > *::before {
+    content: '?';
+    display: inline-block;
+    width: 150px;
+}
+
+map-link::before {
+    content: 'Map Link:';
+}
+
+map-description::before {
+    content: '';
+    width: 20px;
+}
+
+start-level::before {
+    content: 'Start Level:';
+}
+
+start-x::before {
+    content: 'Start X:';
+}
+
+start-y::before {
+    content: 'Start Y:';
+}
+
+start-zoom::before {
+    content: 'Start Zoom:';
+}
+
+start-orientation::before {
+    content: 'Start Orientation:';
+}
+
+poi-title::before {
+    content: 'Point of Interest:';
+}
+
+poi-description::before {
+    content: '';
+    width: 20px;
+}
+
+poi-author::before {
+    content: 'Author';
+}

@@ -11,7 +11,7 @@ let idx = 0
  * Occurs once before setup.
  */
 function preload () {
-  setMapByURL('file.fdf-map')
+  // setMapByURL('file.fdf-map')
 }
 
 /**
@@ -19,12 +19,13 @@ function preload () {
  * 
  * @param {string} mapUrl the URL of the fdf-map file to load and view
  */
-function setMapByURL(mapUrl) {
+async function setMapByURL(mapUrl) {
   document.getElementById('fileName').innerText = mapUrl
 
   // fetch local file
-  dfMapData = loadMapFromURL(mapUrl).then(e => {
-    dfMapData = e
+  return loadMapFromURL(mapUrl).then(map => {
+    dfMapData = map
+    return map
   })
 }
 
@@ -220,6 +221,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
       break
     }
   }
+
+  console.log('[Renderer] zoomTo', { layer, pscale, xTile, yTile, found, dfMapData })
 
   if (!found) { return }
 
