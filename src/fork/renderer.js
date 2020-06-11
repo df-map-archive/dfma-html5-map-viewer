@@ -11,11 +11,19 @@ let idx = 0
  * Occurs once before setup.
  */
 function preload () {
-  const fName = 'file.fdf-map'
-  document.getElementById('fileName').innerText = fName
+  setMapByURL('file.fdf-map')
+}
+
+/**
+ * Set map to view by URL
+ * 
+ * @param {string} mapUrl the URL of the fdf-map file to load and view
+ */
+function setMapByURL(mapUrl) {
+  document.getElementById('fileName').innerText = mapUrl
 
   // fetch local file
-  dfMapData = loadMapFromURL(fName).then(e => {
+  dfMapData = loadMapFromURL(mapUrl).then(e => {
     dfMapData = e
   })
 }
@@ -332,6 +340,7 @@ module.exports = {
   mousePressed,
   zoom,
   draw,
+  setMapByURL,
   setup,
   preload,
   zoomTo
