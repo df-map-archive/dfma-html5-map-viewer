@@ -44,5 +44,5 @@ The master branch is protected; the default action for merge to master is to bui
 
 Credit where credit due:
 - Thanks to [Jacob Blomquist](https://github.com/JacobRBlomquist) for his [original and continued work](https://github.com/JacobRBlomquist/DFMA-Viewer-HTML5) on the HTML version of the map viewer 
-- [p5.js]((https://p5js.org/)) - for a fantastic canvas interface
+- [p5.js](https://p5js.org/) - for a fantastic canvas interface
 - [pako](https://github.com/nodeca/pako) - for a fantastic zlib implementation
