@@ -56,6 +56,7 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
+    "jsdom": "^16.2.2",
     "mocha": "^8.0.1",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.4.3",
