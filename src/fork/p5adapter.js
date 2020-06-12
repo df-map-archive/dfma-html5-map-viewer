@@ -23,7 +23,10 @@ const methodsToAdapt = [
   'pixelDensity'
 ]
 
-module.exports = methodsToAdapt.reduce((acc, methodName) => {
-  acc[methodName] = adaptToObject(methodName, window)
-  return acc
-}, {})
+module.exports = (window) => {
+  const methods = methodsToAdapt.reduce((acc, methodName) => {
+    acc[methodName] = adaptToObject(methodName, window)
+    return acc
+  }, {})
+  return methods
+}

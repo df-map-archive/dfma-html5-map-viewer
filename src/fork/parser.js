@@ -1,12 +1,14 @@
-import p5 from './p5adapter'
+import p5adapter from './p5adapter'
 
 const pako = require('pako')
-const fetch = window.fetch
+const browser = (typeof window !== 'undefined') ? window : {}
+const p5 = p5adapter(browser)
+const fetch = browser.fetch
 
 /**
  * Object which stores all data for a specific map
  */
-function MapData () {
+export function MapData () {
   this.loaded = false
   this.version = 0
   this.numTiles = 0
@@ -234,7 +236,7 @@ async function fetchAndDecompressMapData (path) {
  *
  * returns: a mapData object that's ready to have its layers queried with 'mapData.getLayer();
  */
-async function loadMapFromURL (path) {
+export async function loadMapFromURL (path) {
   const md = new MapData()
   try {
     const loadedData = await fetchAndDecompressMapData(path)
@@ -246,7 +248,7 @@ async function loadMapFromURL (path) {
   return md
 }
 
-export {
+export default {
   MapData,
   loadMapFromURL
 }
