@@ -58,6 +58,7 @@
     "esm": "^3.2.25",
     "mocha": "^8.0.1",
     "parcel-bundler": "^1.12.4",
-    "parcel-plugin-static-files-copy": "^2.4.3"
+    "parcel-plugin-static-files-copy": "^2.4.3",
+    "standard": "^14.3.4"
   }
 }
