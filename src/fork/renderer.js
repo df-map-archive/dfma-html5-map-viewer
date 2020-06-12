@@ -1,6 +1,10 @@
 import { loadMapFromURL, MapData } from './parser'
+import p5adapter from './p5adapter'
+
 const pako = require('pako')
-const p5 = require('./p5adapter')
+
+const browser = (typeof window !== 'undefined') ? window : {}
+const p5 = p5adapter(browser)
 
 let dfMapData
 let idx = 0

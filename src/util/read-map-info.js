@@ -2,7 +2,7 @@ function readMapInfoFromDocument (parent) {
   const defaultMap = Array.from(parent.getElementsByTagName('default-map'))[0]
 
   function readTag (tagName) {
-    return defaultMap.getElementsByTagName(tagName)[0].innerText
+    return defaultMap.getElementsByTagName(tagName)[0].textContent
   }
 
   const mapInfo = {

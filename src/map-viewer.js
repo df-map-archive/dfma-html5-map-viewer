@@ -13,7 +13,7 @@ function setup () {
   }
 
   if (typeof document !== 'undefined') {
-    rewriteMapLinks(document, renderer)
+    rewriteMapLinks(document, renderer.setMapByURL)
     setupStartingMap(document, renderer)
   }
 }
