@@ -1,6 +1,6 @@
+import { loadMapFromURL, MapData } from './parser'
 const pako = require('pako')
 const p5 = require('./p5adapter')
-const { loadMapFromURL } = require('./parser')
 
 let dfMapData
 let idx = 0
@@ -16,10 +16,10 @@ function preload () {
 
 /**
  * Set map to view by URL
- * 
+ *
  * @param {string} mapUrl the URL of the fdf-map file to load and view
  */
-async function setMapByURL(mapUrl) {
+async function setMapByURL (mapUrl) {
   document.getElementById('fileName').innerText = mapUrl
 
   // fetch local file
@@ -335,7 +335,7 @@ function fileDropCB (file) {
   document.getElementById('fileName').innerText = file.name
 }
 
-module.exports = {
+export default {
   fileDropCB,
   fileHoverLeaveCB,
   keyPressed,

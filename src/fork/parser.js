@@ -1,5 +1,6 @@
+import p5 from './p5adapter'
+
 const pako = require('pako')
-const p5 = require('./p5adapter')
 const fetch = window.fetch
 
 /**
@@ -245,9 +246,7 @@ async function loadMapFromURL (path) {
   return md
 }
 
-if (typeof module !== 'undefined') {
-  module.exports = {
-    MapData,
-    loadMapFromURL
-  }
+export {
+  MapData,
+  loadMapFromURL
 }

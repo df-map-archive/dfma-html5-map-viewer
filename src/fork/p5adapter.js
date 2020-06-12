@@ -1,4 +1,4 @@
-function adaptToObject(fnName, object) {
+function adaptToObject (fnName, object) {
   return (...args) => object[fnName](...args)
 }
 
