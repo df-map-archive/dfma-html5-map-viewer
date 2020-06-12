@@ -6,10 +6,11 @@ import unitUnderTest from '../../src/util/read-map-info'
 const { JSDOM } = jsdom
 
 describe('Read map info', () => {
-  let document
+  let document, body
   before(async () => {
     const { window } = await JSDOM.fromFile(join(__dirname, 'stubs/mapInfo.html'))
     document = window.document
+    body = document.querySelector('body')
   })
 
   it('should export a function to test', () => {
@@ -17,7 +18,7 @@ describe('Read map info', () => {
   })
 
   it('should return an object with values parsed from the document', () => {
-    const actual = unitUnderTest(document.querySelector('body'))
+    const actual = unitUnderTest(body)
     expect(actual).to.deep.equal({
       mapDescription: 'A comunity/story fort aiming to build a library and fort across all 3 cavern levels. I\'ve not explored the library mechanics before.',
       mapLink: '/dfma/maps/2020-03/mounf-Bellsshower-A_library-251-110.fdf-map',
