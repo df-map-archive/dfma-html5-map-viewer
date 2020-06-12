@@ -1,11 +1,9 @@
-function rewriteMapLinks (document, renderer) {
-  const { setMapByURL } = renderer
+function rewriteMapLinks (document, callback) {
   const mapLinks = Array.from(document.getElementsByTagName('map-link'))
   mapLinks.forEach(mapLink => {
-    const href = mapLink.innerText
+    const href = mapLink.textContent
     mapLink.onclick = () => {
-      console.log('[map-viewer] Map link clicked:', href)
-      setMapByURL(href)
+      callback(href)
     }
   })
 }
