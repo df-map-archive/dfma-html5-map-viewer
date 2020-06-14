@@ -1,7 +1,7 @@
-import parser from './fork/parser'
-import renderer from './fork/renderer'
-import setupStartingMap from './util/setup-starting-map'
-import rewriteMapLinks from './util/rewrite-map-links'
+import parser from './components/parser'
+import renderer from './components/renderer'
+import setupStartingMap from './components/setup-starting-map'
+import rewriteMapLinks from './components/rewrite-map-links'
 
 const p5 = require('p5')
 

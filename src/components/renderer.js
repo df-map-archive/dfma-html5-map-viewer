@@ -1,5 +1,5 @@
 import { loadMapFromURL, MapData } from './parser'
-import p5adapter from './p5adapter'
+import p5adapter from '../adapters/p5adapter'
 
 const pako = require('pako')
 

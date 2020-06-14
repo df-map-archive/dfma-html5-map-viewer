@@ -1,9 +1,9 @@
-import p5adapter from './p5adapter'
+import p5adapter from '../adapters/p5adapter'
 
 const pako = require('pako')
-const browser = (typeof window !== 'undefined') ? window : {}
-const p5 = p5adapter(browser)
-const fetch = browser.fetch
+const browserWindow = (typeof window !== 'undefined') ? window : {}
+const p5 = p5adapter(browserWindow)
+const fetch = browserWindow.fetch
 
 /**
  * Object which stores all data for a specific map
