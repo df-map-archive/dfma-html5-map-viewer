@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import unitUnderTest from '../../src/fork/parser'
+import unitUnderTest from '../../src/components/parser'
 
 describe('Parser Interface', () => {
   it('should expose the expected properties on the default interface', () => {

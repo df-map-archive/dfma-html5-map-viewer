@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import unitUnderTest from '../../src/fork/renderer'
+import unitUnderTest from '../../src/components/renderer'
 
 describe('Renderer Interface', () => {
   it('should expose the expected properties on the default interface', () => {

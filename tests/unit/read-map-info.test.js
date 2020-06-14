@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { join } from 'path'
 import jsdom from 'jsdom'
-import unitUnderTest from '../../src/util/read-map-info'
+import unitUnderTest from '../../src/components/read-map-info'
 
 const { JSDOM } = jsdom
 
