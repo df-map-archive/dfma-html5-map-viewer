@@ -6,7 +6,7 @@ const p5 = p5adapter(browserWindow)
 
 // RENDERER SHARED STATE
 
-const renderer = {
+const viewState = {
   dfMapData: false,
   dragged: false,
   imageX: 0,
@@ -46,7 +46,7 @@ async function setMapByURL (mapUrl) {
 
   // fetch local file
   return loadMapFromURL(mapUrl).then(map => {
-    renderer.dfMapData = map
+    viewState.dfMapData = map
     return map
   })
 }
@@ -71,44 +71,44 @@ function setup () {
  * Occurs each frame
  */
 function draw () {
-  if (renderer.dfMapData && renderer.dfMapData.loaded) {
+  if (viewState.dfMapData && viewState.dfMapData.loaded) {
     if (browserWindow.keyIsPressed === true && (browserWindow.key === '=' || browserWindow.key === '+' || browserWindow.key === '-')) { zoom() }
 
     // setup zoom information
-    if (renderer.originalImgWidth === 0) { // not loaded
-      renderer.originalImgWidth = renderer.dfMapData.mapData[0].width * renderer.dfMapData.tileWidth
-      renderer.originalImgHeight = renderer.dfMapData.mapData[0].height * renderer.dfMapData.tileHeight
-      renderer.imgWidth = renderer.originalImgWidth * renderer.scale
-      renderer.imgHeight = renderer.originalImgHeight * renderer.scale
+    if (viewState.originalImgWidth === 0) { // not loaded
+      viewState.originalImgWidth = viewState.dfMapData.mapData[0].width * viewState.dfMapData.tileWidth
+      viewState.originalImgHeight = viewState.dfMapData.mapData[0].height * viewState.dfMapData.tileHeight
+      viewState.imgWidth = viewState.originalImgWidth * viewState.scale
+      viewState.imgHeight = viewState.originalImgHeight * viewState.scale
       // return;
     }
 
     p5.background(0)// Make background black
 
-    const mapData = renderer.dfMapData.mapData
-    if (mapData[renderer.idx] !== undefined && mapData[renderer.idx].loaded === false && !mapData[renderer.idx].loading) {
-      renderer.dfMapData.getLayer(renderer.idx)
+    const mapData = viewState.dfMapData.mapData
+    if (mapData[viewState.idx] !== undefined && mapData[viewState.idx].loaded === false && !mapData[viewState.idx].loading) {
+      viewState.dfMapData.getLayer(viewState.idx)
       return
     }
-    if (mapData[renderer.idx] === undefined || mapData[renderer.idx].img === undefined) {
+    if (mapData[viewState.idx] === undefined || mapData[viewState.idx].img === undefined) {
       return
     }
-    const img = renderer.dfMapData.getLayer(renderer.idx)
-    p5.image(img, renderer.imageX, renderer.imageY, renderer.imgWidth, renderer.imgHeight)
+    const img = viewState.dfMapData.getLayer(viewState.idx)
+    p5.image(img, viewState.imageX, viewState.imageY, viewState.imgWidth, viewState.imgHeight)
 
-    const selectorWidth = renderer.dfMapData.tileWidth * renderer.scale
-    const selectorHeight = renderer.dfMapData.tileHeight * renderer.scale
+    const selectorWidth = viewState.dfMapData.tileWidth * viewState.scale
+    const selectorHeight = viewState.dfMapData.tileHeight * viewState.scale
 
     // draw selector
-    const curCenterX = canvasWidth / 2 - renderer.imageX
-    const curCenterY = canvasHeight / 2 - renderer.imageY
-    const selectedX = p5.floor(curCenterX / (renderer.dfMapData.tileWidth * renderer.scale))
-    const selectedY = p5.floor(curCenterY / (renderer.dfMapData.tileHeight * renderer.scale))
+    const curCenterX = canvasWidth / 2 - viewState.imageX
+    const curCenterY = canvasHeight / 2 - viewState.imageY
+    const selectedX = p5.floor(curCenterX / (viewState.dfMapData.tileWidth * viewState.scale))
+    const selectedY = p5.floor(curCenterY / (viewState.dfMapData.tileHeight * viewState.scale))
 
     p5.stroke(255, 0, 0)
-    p5.strokeWeight(p5.max(renderer.scale, 2))
+    p5.strokeWeight(p5.max(viewState.scale, 2))
     p5.noFill()
-    p5.rect(renderer.imageX + selectorWidth * selectedX, renderer.imageY + selectorHeight * selectedY, selectorWidth, selectorHeight)
+    p5.rect(viewState.imageX + selectorWidth * selectedX, viewState.imageY + selectorHeight * selectedY, selectorWidth, selectorHeight)
     p5.stroke(255, 255, 0)
     const crosshairSize = 5
     p5.strokeWeight(2)
@@ -123,9 +123,9 @@ function draw () {
     p5.strokeWeight(1)
     p5.textFont('Helvetica', 12)
     p5.textAlign(browserWindow.LEFT)
-    p5.text('Layer: ' + renderer.dfMapData.mapData[renderer.idx].depth, textLeftOffset, textTopOffset)
-    p5.text('Zoom: ' + renderer.scale.toFixed(2), textLeftOffset, textTopOffset + 20)
-    p5.text(`X: ${selectedX} ${renderer.imageX}, Y: ${selectedY} ${renderer.imageY}`, textLeftOffset, textTopOffset + 40)
+    p5.text('Layer: ' + viewState.dfMapData.mapData[viewState.idx].depth, textLeftOffset, textTopOffset)
+    p5.text('Zoom: ' + viewState.scale.toFixed(2), textLeftOffset, textTopOffset + 20)
+    p5.text(`X: ${selectedX} ${viewState.imageX}, Y: ${selectedY} ${viewState.imageY}`, textLeftOffset, textTopOffset + 40)
 
     // debug code for seeing all tiles
     //       loadPixels();
@@ -154,7 +154,7 @@ function draw () {
     //      }
     //      updatePixels();
 
-    if (renderer.dragged) {
+    if (viewState.dragged) {
       p5.fill(0, 0, 0, 200)
       p5.textFont('Helvetica', 30)
       p5.textAlign(browserWindow.CENTER, browserWindow.CENTER)
@@ -181,18 +181,18 @@ function zoom () {
   // ZOOM
 
   if (browserWindow.key === '=' || browserWindow.key === '+') {
-    renderer.scale *= jump
-    if (renderer.scale > 20) {
-      renderer.scale = 20
+    viewState.scale *= jump
+    if (viewState.scale > 20) {
+      viewState.scale = 20
     }
 
     zoomed = true
   }
 
   if (browserWindow.key === '-') {
-    renderer.scale /= jump
-    if (renderer.scale < 0.01) {
-      renderer.scale = 0.01
+    viewState.scale /= jump
+    if (viewState.scale < 0.01) {
+      viewState.scale = 0.01
     }
 
     zoomed = true
@@ -200,18 +200,18 @@ function zoom () {
 
   // center zoom
   if (zoomed) {
-    const curCenterX = canvasWidth / 2 - renderer.imageX
-    const curCenterY = canvasHeight / 2 - renderer.imageY
+    const curCenterX = canvasWidth / 2 - viewState.imageX
+    const curCenterY = canvasHeight / 2 - viewState.imageY
 
-    const ratioX = curCenterX / renderer.imgWidth
-    const ratioY = curCenterY / renderer.imgHeight
+    const ratioX = curCenterX / viewState.imgWidth
+    const ratioY = curCenterY / viewState.imgHeight
 
-    renderer.imgWidth = renderer.originalImgWidth * renderer.scale
-    renderer.imgHeight = renderer.originalImgHeight * renderer.scale
+    viewState.imgWidth = viewState.originalImgWidth * viewState.scale
+    viewState.imgHeight = viewState.originalImgHeight * viewState.scale
 
-    renderer.imageX = canvasWidth / 2 - renderer.imgWidth * ratioX
-    renderer.imageY = canvasHeight / 2 - renderer.imgHeight * ratioY
-    renderer.originalImgWidth = 0
+    viewState.imageX = canvasWidth / 2 - viewState.imgWidth * ratioX
+    viewState.imageY = canvasHeight / 2 - viewState.imgHeight * ratioY
+    viewState.originalImgWidth = 0
   }
 }
 
@@ -226,8 +226,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
   // find the desired layer
   let found = false
   let curLayer
-  for (let i = 0; i < renderer.dfMapData.mapData.length; i++) {
-    curLayer = renderer.dfMapData.mapData[i]
+  for (let i = 0; i < viewState.dfMapData.mapData.length; i++) {
+    curLayer = viewState.dfMapData.mapData[i]
     if (curLayer.depth === layer) {
       found = true
       break
@@ -238,15 +238,15 @@ function zoomTo (layer, pscale, xTile, yTile) {
     return
   }
 
-  renderer.idx = curLayer.index
-  renderer.scale = pscale
+  viewState.idx = curLayer.index
+  viewState.scale = pscale
 
-  renderer.imgWidth = renderer.originalImgWidth * renderer.scale
-  renderer.imgHeight = renderer.originalImgHeight * renderer.scale
+  viewState.imgWidth = viewState.originalImgWidth * viewState.scale
+  viewState.imgHeight = viewState.originalImgHeight * viewState.scale
 
-  console.log('[Zoom To]', { windowWidth: canvasWidth, tileWidth: renderer.dfMapData.tileWidth, scale: renderer.scale, xTile })
-  renderer.imageX = canvasWidth / 2 - renderer.dfMapData.tileWidth * renderer.scale * xTile + renderer.dfMapData.tileWidth / 2 * renderer.scale
-  renderer.imageY = canvasHeight / 2 - renderer.dfMapData.tileHeight * renderer.scale * yTile + renderer.dfMapData.tileHeight / 2 * renderer.scale
+  console.log('[Zoom To]', { windowWidth: canvasWidth, tileWidth: viewState.dfMapData.tileWidth, scale: viewState.scale, xTile })
+  viewState.imageX = canvasWidth / 2 - viewState.dfMapData.tileWidth * viewState.scale * xTile + viewState.dfMapData.tileWidth / 2 * viewState.scale
+  viewState.imageY = canvasHeight / 2 - viewState.dfMapData.tileHeight * viewState.scale * yTile + viewState.dfMapData.tileHeight / 2 * viewState.scale
 }
 
 /**
@@ -255,8 +255,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
  * Called whenever the mouse is pressed
  */
 function mousePressed () {
-  renderer.clickX = browserWindow.mouseX
-  renderer.clickY = browserWindow.mouseY
+  viewState.clickX = browserWindow.mouseX
+  viewState.clickY = browserWindow.mouseY
 }
 
 /**
@@ -265,12 +265,12 @@ function mousePressed () {
  * Called whenever the mouse is dragged
  */
 function mouseDragged () {
-  const xDif = (browserWindow.mouseX - renderer.clickX)
-  const yDif = (browserWindow.mouseY - renderer.clickY)
-  renderer.clickX = browserWindow.mouseX
-  renderer.clickY = browserWindow.mouseY
-  renderer.imageX += xDif
-  renderer.imageY += yDif
+  const xDif = (browserWindow.mouseX - viewState.clickX)
+  const yDif = (browserWindow.mouseY - viewState.clickY)
+  viewState.clickX = browserWindow.mouseX
+  viewState.clickY = browserWindow.mouseY
+  viewState.imageX += xDif
+  viewState.imageY += yDif
 }
 /**
  * P5 KeyPressed function
@@ -279,13 +279,13 @@ function mouseDragged () {
  */
 function keyPressed () {
   if (browserWindow.key === ',' || browserWindow.key === '<') {
-    renderer.idx++
-    if (renderer.idx >= renderer.dfMapData.numLayers) {
-      renderer.idx = renderer.dfMapData.numLayers - 1
+    viewState.idx++
+    if (viewState.idx >= viewState.dfMapData.numLayers) {
+      viewState.idx = viewState.dfMapData.numLayers - 1
     }
   }
   if (browserWindow.key === '.' || browserWindow.key === '>') {
-    renderer.idx = Math.min(0, renderer.idx - 1)
+    viewState.idx = Math.min(0, viewState.idx - 1)
   }
 
   let modifier = 1
@@ -295,16 +295,16 @@ function keyPressed () {
   }
 
   if (p5.keyIsDown(102)) { // number 6
-    renderer.imageX -= renderer.dfMapData.tileWidth * renderer.scale * modifier
+    viewState.imageX -= viewState.dfMapData.tileWidth * viewState.scale * modifier
   }
   if (p5.keyIsDown(100)) { // number 4
-    renderer.imageX += renderer.dfMapData.tileWidth * renderer.scale * modifier
+    viewState.imageX += viewState.dfMapData.tileWidth * viewState.scale * modifier
   }
   if (p5.keyIsDown(98)) { // number 2
-    renderer.imageY -= renderer.dfMapData.tileHeight * renderer.scale * modifier
+    viewState.imageY -= viewState.dfMapData.tileHeight * viewState.scale * modifier
   }
   if (p5.keyIsDown(104)) { // number 8
-    renderer.imageY += renderer.dfMapData.tileHeight * renderer.scale * modifier
+    viewState.imageY += viewState.dfMapData.tileHeight * viewState.scale * modifier
   }
 }
 
@@ -314,9 +314,9 @@ export default {
   mouseDragged,
   mousePressed,
   preload,
-  renderer,
   setMapByURL,
   setup,
+  viewState,
   zoom,
   zoomTo
 }

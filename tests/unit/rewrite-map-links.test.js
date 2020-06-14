@@ -21,7 +21,7 @@ describe('Rewrite map links', () => {
     function callback (href) {
       clicks.push(href)
     }
-    unitUnderTest(document.querySelector('body'), callback)
+    unitUnderTest(document.querySelector('body'), { setMapByURL: callback })
     const mapLinks = Array.from(document.getElementsByTagName('map-link'))
     mapLinks.forEach(el => {
       el.click()

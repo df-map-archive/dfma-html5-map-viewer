@@ -1,4 +1,4 @@
-function registerOn (browserWindow) {
+function registerOn (browserWindow, { viewState }) {
 
 }
 

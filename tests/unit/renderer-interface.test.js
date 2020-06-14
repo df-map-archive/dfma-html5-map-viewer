@@ -10,16 +10,16 @@ describe('Renderer Interface', () => {
       'mouseDragged',
       'mousePressed',
       'preload',
-      'renderer',
       'setMapByURL',
       'setup',
+      'viewState',
       'zoom',
       'zoomTo'
     ])
   })
 
-  it('should expose properties on the renderer that can be accessed by other components', () => {
-    const actual = unitUnderTest.renderer
+  it('should expose the viewState on the renderer that can be accessed by other components', () => {
+    const actual = unitUnderTest.viewState
     expect(actual).to.deep.equal({
       clickX: 0,
       clickY: 0,
