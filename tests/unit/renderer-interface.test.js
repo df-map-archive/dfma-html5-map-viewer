@@ -6,9 +6,6 @@ describe('Renderer Interface', () => {
     const actual = Object.keys(unitUnderTest)
     expect(actual).to.deep.equal([
       'draw',
-      'keyPressed',
-      'mouseDragged',
-      'mousePressed',
       'preload',
       'setMapByURL',
       'setup',

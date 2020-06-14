@@ -127,32 +127,9 @@ function draw () {
     p5.text('Zoom: ' + viewState.scale.toFixed(2), textLeftOffset, textTopOffset + 20)
     p5.text(`X: ${selectedX} ${viewState.imageX}, Y: ${selectedY} ${viewState.imageY}`, textLeftOffset, textTopOffset + 40)
 
-    // debug code for seeing all tiles
-    //       loadPixels();
-    //    let xT = 0, yT = 0;
-    //      let wPixels = dfMapData.tileWidth;
-    //      let hPixels = dfMapData.tileHeight;
-    //      for (let i = 0; i < dfMapData.numTiles; i++) {
-
-    //          let cols = dfMapData.tiles[i];
-    //          for (let y = 0; y < hPixels; y++) {
-    //              for (let x = 0; x < wPixels; x++) {
-    //                  let idx = x * 4 + y * 4 * wPixels;
-    //                  pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * width * 4] = cols[idx];
-    //                  pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * width * 4 + 1] = cols[idx + 1];
-    //                  pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * width * 4 + 2] = cols[idx + 2];
-    //                  pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * width * 4 + 3] = cols[idx + 3];
-    //              }
-    //          }
-    //          xT++;
-    //          if (xT >= width / wPixels) {
-    //              xT = 0;
-    //              yT++;
-    //              if (yT >= height / hPixels)
-    //                  break;
-    //          }
-    //      }
-    //      updatePixels();
+    if (viewState.showTiles) {
+      showTiles()
+    }
 
     if (viewState.dragged) {
       p5.fill(0, 0, 0, 200)
@@ -171,6 +148,34 @@ function draw () {
 
     p5.text('Loading...', canvasWidth / 2, canvasHeight / 2)
   }
+}
+
+function showTiles () {
+  p5.loadPixels()
+  let xT = 0; let yT = 0
+  const wPixels = viewState.dfMapData.tileWidth
+  const hPixels = viewState.dfMapData.tileHeight
+  for (let i = 0; i < viewState.dfMapData.numTiles; i++) {
+    const cols = viewState.dfMapData.tiles[i]
+    for (let y = 0; y < hPixels; y++) {
+      for (let x = 0; x < wPixels; x++) {
+        const idx = x * 4 + y * 4 * wPixels
+        browserWindow.pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * browserWindow.width * 4] = cols[idx]
+        browserWindow.pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * browserWindow.width * 4 + 1] = cols[idx + 1]
+        browserWindow.pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * browserWindow.width * 4 + 2] = cols[idx + 2]
+        browserWindow.pixels[(xT * wPixels * 4) + x * 4 + (y + yT * hPixels) * browserWindow.width * 4 + 3] = cols[idx + 3]
+      }
+    }
+    xT++
+    if (xT >= viewState.width / wPixels) {
+      xT = 0
+      yT++
+      if (yT >= viewState.height / hPixels) {
+        break
+      }
+    }
+  }
+  p5.updatePixels()
 }
 
 /**
@@ -249,70 +254,8 @@ function zoomTo (layer, pscale, xTile, yTile) {
   viewState.imageY = canvasHeight / 2 - viewState.dfMapData.tileHeight * viewState.scale * yTile + viewState.dfMapData.tileHeight / 2 * viewState.scale
 }
 
-/**
- * P5 MousePressed
- *
- * Called whenever the mouse is pressed
- */
-function mousePressed () {
-  viewState.clickX = browserWindow.mouseX
-  viewState.clickY = browserWindow.mouseY
-}
-
-/**
- * P5 MouseDragged
- *
- * Called whenever the mouse is dragged
- */
-function mouseDragged () {
-  const xDif = (browserWindow.mouseX - viewState.clickX)
-  const yDif = (browserWindow.mouseY - viewState.clickY)
-  viewState.clickX = browserWindow.mouseX
-  viewState.clickY = browserWindow.mouseY
-  viewState.imageX += xDif
-  viewState.imageY += yDif
-}
-/**
- * P5 KeyPressed function
- *
- * called whenever a key is pressed
- */
-function keyPressed () {
-  if (browserWindow.key === ',' || browserWindow.key === '<') {
-    viewState.idx++
-    if (viewState.idx >= viewState.dfMapData.numLayers) {
-      viewState.idx = viewState.dfMapData.numLayers - 1
-    }
-  }
-  if (browserWindow.key === '.' || browserWindow.key === '>') {
-    viewState.idx = Math.min(0, viewState.idx - 1)
-  }
-
-  let modifier = 1
-
-  if (p5.keyIsDown(90)) { //  'z'
-    modifier = 10
-  }
-
-  if (p5.keyIsDown(102)) { // number 6
-    viewState.imageX -= viewState.dfMapData.tileWidth * viewState.scale * modifier
-  }
-  if (p5.keyIsDown(100)) { // number 4
-    viewState.imageX += viewState.dfMapData.tileWidth * viewState.scale * modifier
-  }
-  if (p5.keyIsDown(98)) { // number 2
-    viewState.imageY -= viewState.dfMapData.tileHeight * viewState.scale * modifier
-  }
-  if (p5.keyIsDown(104)) { // number 8
-    viewState.imageY += viewState.dfMapData.tileHeight * viewState.scale * modifier
-  }
-}
-
 export default {
   draw,
-  keyPressed,
-  mouseDragged,
-  mousePressed,
   preload,
   setMapByURL,
   setup,

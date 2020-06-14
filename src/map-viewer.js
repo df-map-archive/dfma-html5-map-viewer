@@ -12,13 +12,13 @@ function setup () {
     window.p5 = p5
     Object.assign(window, parser)
     Object.assign(window, renderer)
+    userInputs(window, renderer)
   }
 
   if (typeof document !== 'undefined') {
     rewriteMapLinks(document, renderer)
     setupStartingMap(document, renderer)
     dragAndDrop(document, window, renderer)
-    userInputs(document, renderer)
   }
 }
 
