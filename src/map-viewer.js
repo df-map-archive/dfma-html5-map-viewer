@@ -4,8 +4,10 @@ import setupStartingMap from './components/setup-starting-map'
 import rewriteMapLinks from './components/rewrite-map-links'
 import dragAndDrop from './components/drag-and-drop'
 import userInputs from './components/user-inputs'
+import setMapByURL from './components/viewState/set-map-by-url'
 import zoomTo from './components/viewState/zoom-to'
 import viewState from './components/viewState/model'
+import { loadMapFromURL, loadMapFromFileSystem } from './components/readers'
 
 const p5 = require('p5')
 
@@ -22,8 +24,8 @@ function setup () {
 
   if (typeof document !== 'undefined') {
     rewriteMapLinks(document, { setMapByURL: mapRenderer.setMapByURL })
-    setupStartingMap(document, { setMapByURL: mapRenderer.setMapByURL, zoomTo: zoomTo(viewState) })
-    dragAndDrop(document, window, { viewState })
+    setupStartingMap(document, { setMapByURL: setMapByURL(viewState, loadMapFromURL), zoomTo: zoomTo(viewState) })
+    dragAndDrop(document, window, { viewState, loadMapFromFileSystem })
   }
 }
 

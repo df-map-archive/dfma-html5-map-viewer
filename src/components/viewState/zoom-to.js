@@ -3,7 +3,7 @@
  *
  * @param {object} viewState
  */
-export default function (viewState) {
+export default (viewState) => {
   /**
    * Zoom to a POI
    *

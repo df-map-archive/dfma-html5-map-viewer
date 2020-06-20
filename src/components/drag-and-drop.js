@@ -1,6 +1,4 @@
-import { loadMapFromFileSystem } from './readers'
-
-function registerOn (document, browserWindow, { viewState }) {
+function registerOn (document, browserWindow, { viewState, loadMapFromFileSystem }) {
   const dropTarget = document.getElementById('p5-dfma-html5-map-viewer')
 
   console.log('[Drag and Drop]', 'Registered drop target', dropTarget)

@@ -12,7 +12,6 @@ describe('Renderer Interface', () => {
     expect(actual).to.deep.equal([
       'draw',
       'preload',
-      'setMapByURL',
       'setup',
       'zoom'
     ])

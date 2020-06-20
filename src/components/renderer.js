@@ -1,4 +1,3 @@
-import { loadMapFromURL } from './readers'
 import p5adapter from '../adapters/p5adapter'
 
 export default function (viewState, browserWindow) {
@@ -18,21 +17,6 @@ export default function (viewState, browserWindow) {
    */
   function preload () {
     // setMapByURL('file.fdf-map')
-  }
-
-  /**
-   * Set map to view by URL
-   *
-   * @param {string} mapUrl the URL of the fdf-map file to load and view
-   */
-  async function setMapByURL (mapUrl) {
-    document.getElementById('fileName').innerText = mapUrl
-
-    // fetch local file
-    return loadMapFromURL(mapUrl).then(map => {
-      viewState.dfMapData = map
-      return map
-    })
   }
 
   /**
@@ -207,7 +191,6 @@ export default function (viewState, browserWindow) {
   return {
     draw,
     preload,
-    setMapByURL,
     setup,
     zoom
   }
