@@ -9,8 +9,7 @@ export default function (viewState, browserWindow) {
   // CONSTANTS
 
   const jump = 1.05
-  const canvasWidth = 800
-  const canvasHeight = 600
+  const { canvasWidth, canvasHeight } = viewState
 
   /**
    * P5 Preload.
@@ -205,47 +204,11 @@ export default function (viewState, browserWindow) {
     }
   }
 
-  /**
-   * Zoom to a POI
-   * layer - layer to zoom to
-   * scale - zoom scale (zoom amount)
-   * xTile - xTile to zoom to
-   * yTile - yTile to zoom to
-   */
-  function zoomTo (layer, pscale, xTile, yTile) {
-    // find the desired layer
-    let found = false
-    let curLayer
-    for (let i = 0; i < viewState.dfMapData.mapData.length; i++) {
-      curLayer = viewState.dfMapData.mapData[i]
-      if (curLayer.depth === layer) {
-        found = true
-        break
-      }
-    }
-
-    if (!found) {
-      return
-    }
-
-    viewState.idx = curLayer.index
-    viewState.scale = pscale
-
-    viewState.imgWidth = viewState.originalImgWidth * viewState.scale
-    viewState.imgHeight = viewState.originalImgHeight * viewState.scale
-
-    console.log('[Zoom To]', { windowWidth: canvasWidth, tileWidth: viewState.dfMapData.tileWidth, scale: viewState.scale, xTile })
-    viewState.imageX = canvasWidth / 2 - viewState.dfMapData.tileWidth * viewState.scale * xTile + viewState.dfMapData.tileWidth / 2 * viewState.scale
-    viewState.imageY = canvasHeight / 2 - viewState.dfMapData.tileHeight * viewState.scale * yTile + viewState.dfMapData.tileHeight / 2 * viewState.scale
-  }
-
   return {
     draw,
     preload,
     setMapByURL,
     setup,
-    viewState,
-    zoom,
-    zoomTo
+    zoom
   }
 }

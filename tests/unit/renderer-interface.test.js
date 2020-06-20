@@ -14,14 +14,7 @@ describe('Renderer Interface', () => {
       'preload',
       'setMapByURL',
       'setup',
-      'viewState',
-      'zoom',
-      'zoomTo'
+      'zoom'
     ])
-  })
-
-  it('should expose the viewState on the renderer that can be accessed by other components', () => {
-    const actual = unitUnderTest(viewState, browserWindow).viewState
-    expect(actual).to.equal(viewState)
   })
 })
