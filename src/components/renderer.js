@@ -58,7 +58,7 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
         // return;
       }
 
-      p5.background(0)// Make background black
+      p5.background(0) // Make background black
 
       const mapData = viewState.dfMapData.mapData
       if (mapData[viewState.idx] !== undefined && mapData[viewState.idx].loaded === false && !mapData[viewState.idx].loading) {
