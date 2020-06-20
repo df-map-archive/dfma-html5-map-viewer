@@ -1,5 +1,4 @@
-import { MapData } from './parser'
-const pako = require('pako')
+import { loadMapFromFileSystem } from './readers'
 
 function registerOn (document, browserWindow, { viewState }) {
   const dropTarget = document.getElementById('p5-dfma-html5-map-viewer')
@@ -32,7 +31,7 @@ function registerOn (document, browserWindow, { viewState }) {
   /**
    * Callback for when a file drop event occurs
    */
-  function fileDrop (ev) {
+  async function fileDrop (ev) {
     allowDrop(ev)
     const { dataTransfer } = ev
     const { files } = dataTransfer
@@ -47,22 +46,12 @@ function registerOn (document, browserWindow, { viewState }) {
     viewState.originalImgWidth = 0
     viewState.originalImgHeight = 0
 
-    const reader = new browserWindow.FileReader()
-    reader.onload = function () {
-      const arr = new Uint8Array(reader.result)
-      // inflate data
-      const data = pako.inflate(arr)
-      const res = new DataView(data.buffer)
-      // bytes = new DataView(data.buffer);
-      viewState.dfMapData = new MapData()
-      viewState.dfMapData.parse(res)
-    }
-
-    reader.readAsArrayBuffer(dropFile)
     fileHoverLeave()
     if (document.getElementById('fileName')) {
       document.getElementById('fileName').innerText = dropFile.name
     }
+
+    viewState.dfMapData = await loadMapFromFileSystem(dropFile)
   }
 }
 

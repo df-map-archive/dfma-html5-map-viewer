@@ -1,4 +1,4 @@
-import { loadMapFromURL } from './parser'
+import { loadMapFromURL } from './readers'
 import p5adapter from '../adapters/p5adapter'
 
 const browserWindow = (typeof window !== 'undefined') ? window : {}

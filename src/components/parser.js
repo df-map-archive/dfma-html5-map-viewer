@@ -1,9 +1,7 @@
 import p5adapter from '../adapters/p5adapter'
 
-const pako = require('pako')
 const browserWindow = (typeof window !== 'undefined') ? window : {}
 const p5 = p5adapter(browserWindow)
-const fetch = browserWindow.fetch
 
 /**
  * Object which stores all data for a specific map
@@ -193,62 +191,6 @@ export function MapData () {
   }
 }
 
-/**
- * Uses Es6 Fetch to get a file at the given path
- *
- * path - path to file (relative to root or absolute)
- */
-async function fetchAndDecompressMapData (path) {
-  // await fetch(path, { method: 'GET', headers: { 'Origin': 'https://mkv25.net' } })
-  //     .then((res) => {
-  //         return res.arrayBuffer()
-  //     })
-  //     .then((a) => {
-  //         let arr = new Uint8Array(a);
-  //         //inflate data
-  //         let data = pako.inflate(arr);
-  //         let res = new DataView(data.buffer);
-  //         // bytes = new DataView(data.buffer);
-  //         return res;
-  //     });
-
-  const res =
-    await fetch(path, { method: 'GET', headers: { Origin: 'https://mkv25.net' } })
-  const ab = await res.arrayBuffer()
-
-  const arr = new Uint8Array(ab)
-  // inflate data
-  const data = pako.inflate(arr)
-  const ret = new DataView(data.buffer)
-  // bytes = new DataView(data.buffer);
-  return ret
-}
-
-/**
- * Fetches and parses a data file from a specific network path
- *
- * This only parses the data, it does NOT populate the image files.
- * These are generated and cached on-the-fly.
- * See the function above "mapData.getLayer"
- *
- * NOTE: Due to CORS the desired file must be under the same origin.
- * path - path to data file
- *
- * returns: a mapData object that's ready to have its layers queried with 'mapData.getLayer();
- */
-export async function loadMapFromURL (path) {
-  const md = new MapData()
-  try {
-    const loadedData = await fetchAndDecompressMapData(path)
-    md.parse(loadedData)
-  } catch (err) {
-    console.error(err)
-  }
-
-  return md
-}
-
 export default {
-  MapData,
-  loadMapFromURL
+  MapData
 }
