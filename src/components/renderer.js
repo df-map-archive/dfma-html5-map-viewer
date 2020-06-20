@@ -1,13 +1,12 @@
 import p5adapter from '../adapters/p5adapter'
 
-export default function (viewState, browserWindow) {
+export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
   const p5 = p5adapter(browserWindow)
 
   // RENDERER SHARED STATE
 
   // CONSTANTS
 
-  const jump = 1.05
   const { canvasWidth, canvasHeight } = viewState
 
   /**
@@ -40,7 +39,15 @@ export default function (viewState, browserWindow) {
    */
   function draw () {
     if (viewState.dfMapData && viewState.dfMapData.loaded) {
-      if (browserWindow.keyIsPressed === true && (browserWindow.key === '=' || browserWindow.key === '+' || browserWindow.key === '-')) { zoom() }
+      if (browserWindow.keyIsPressed === true) {
+        if (browserWindow.key === '+' || browserWindow.key === '=') {
+          zoomIn()
+        }
+
+        if (browserWindow.key === '-' || browserWindow.key === '_') {
+          zoomOut()
+        }
+      }
 
       // setup zoom information
       if (viewState.originalImgWidth === 0) { // not loaded
@@ -146,52 +153,9 @@ export default function (viewState, browserWindow) {
     p5.updatePixels()
   }
 
-  /**
-   * Called whenever a 'zoom' key is pressed.
-   */
-  function zoom () {
-    let zoomed = false
-    // ZOOM
-
-    if (browserWindow.key === '=' || browserWindow.key === '+') {
-      viewState.scale *= jump
-      if (viewState.scale > 20) {
-        viewState.scale = 20
-      }
-
-      zoomed = true
-    }
-
-    if (browserWindow.key === '-') {
-      viewState.scale /= jump
-      if (viewState.scale < 0.01) {
-        viewState.scale = 0.01
-      }
-
-      zoomed = true
-    }
-
-    // center zoom
-    if (zoomed) {
-      const curCenterX = canvasWidth / 2 - viewState.imageX
-      const curCenterY = canvasHeight / 2 - viewState.imageY
-
-      const ratioX = curCenterX / viewState.imgWidth
-      const ratioY = curCenterY / viewState.imgHeight
-
-      viewState.imgWidth = viewState.originalImgWidth * viewState.scale
-      viewState.imgHeight = viewState.originalImgHeight * viewState.scale
-
-      viewState.imageX = canvasWidth / 2 - viewState.imgWidth * ratioX
-      viewState.imageY = canvasHeight / 2 - viewState.imgHeight * ratioY
-      viewState.originalImgWidth = 0
-    }
-  }
-
   return {
     draw,
     preload,
-    setup,
-    zoom
+    setup
   }
 }

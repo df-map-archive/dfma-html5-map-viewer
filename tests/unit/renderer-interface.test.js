@@ -8,12 +8,11 @@ describe('Renderer Interface', () => {
   const browserWindow = {}
 
   it('should expose the expected properties on the default interface', () => {
-    const actual = Object.keys(unitUnderTest(viewState, browserWindow))
+    const actual = Object.keys(unitUnderTest({ viewState }, browserWindow))
     expect(actual).to.deep.equal([
       'draw',
       'preload',
-      'setup',
-      'zoom'
+      'setup'
     ])
   })
 })
