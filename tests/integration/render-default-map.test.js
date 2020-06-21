@@ -28,20 +28,24 @@ describe('Render Default Map', () => {
   before(async function () {
     this.timeout(40000)
     console.log('[Render Default Map] [Before]')
-    return nightmare
-      .viewport(width + padding, height + padding)
-      .goto('http://localhost:9757/fullscreen.html')
-      .wait('canvas#defaultCanvas0')
-      .click('canvas')
-      .screenshot(localPath('results/default-map-actual.png'), { x: 0, y: 0, width, height })
-      .evaluate(() => document.querySelector('#defaultCanvas0').className)
-      .end()
-      .then((result) => {
-        console.log('[Before Render Default Map]', result)
-      })
-      .catch(error => {
-        console.error('[Before Render Default Map] failed:', error)
-      })
+    try {
+      return nightmare
+        .viewport(width + padding, height + padding)
+        .goto('http://localhost:9757/fullscreen.html')
+        .wait('canvas#defaultCanvas0')
+        .click('canvas')
+        .screenshot(localPath('results/default-map-actual.png'), { x: 0, y: 0, width, height })
+        .evaluate(() => document.querySelector('#defaultCanvas0').className)
+        .end()
+        .then((result) => {
+          console.log('[Before Render Default Map]', result)
+        })
+        .catch(error => {
+          console.error('[Before Render Default Map] Failed:', error)
+        })
+    } catch (ex) {
+      console.log('[Before Render Defaults Map] [Error]', ex)
+    }
   })
 
   it('Should render map data to the page', () => {
