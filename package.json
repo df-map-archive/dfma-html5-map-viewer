@@ -47,10 +47,8 @@
   },
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
-    "nightmare": "^3.0.2",
     "p5": "^1.0.0",
-    "pako": "^1.0.11",
-    "window-or-global": "^1.0.1"
+    "pako": "^1.0.11"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -58,8 +56,10 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
+    "express": "^4.17.1",
     "jsdom": "^16.2.2",
     "mocha": "^8.0.1",
+    "nightmare": "^3.0.2",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.4.3",
     "pixelmatch": "^5.2.0",

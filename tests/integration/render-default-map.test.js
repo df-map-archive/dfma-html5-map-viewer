@@ -3,8 +3,8 @@ const Nightmare = require('nightmare')
 const pixelmatch = require('pixelmatch')
 const path = require('path')
 const fs = require('fs')
-const { console } = require('window-or-global')
 const { PNG } = require('pngjs')
+require('../helpers/start-server')
 const nightmare = Nightmare({ show: false })
 
 function localPath (pathFragment) {
@@ -24,7 +24,7 @@ describe('Render Default Map', () => {
   before(async () => {
     return nightmare
       .viewport(width + padding, height + padding)
-      .goto('http://localhost:1234/fullscreen.html')
+      .goto('http://localhost:9757/fullscreen.html')
       .wait('canvas#defaultCanvas0')
       .click('canvas')
       .screenshot(localPath('results/default-map-actual.png'), { x: 0, y: 0, width, height })
