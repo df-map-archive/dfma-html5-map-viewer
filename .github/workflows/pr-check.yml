@@ -24,5 +24,8 @@ jobs:
     - name: Build project
       run: npm run build -s
 
+    - name: Cry and sob
+      run: ls build/xdfmadev/parcel
+
     - name: Tests
       run: npm run test -s

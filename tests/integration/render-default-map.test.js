@@ -5,7 +5,11 @@ const path = require('path')
 const fs = require('fs')
 const { PNG } = require('pngjs')
 require('../helpers/start-server')
-const nightmare = Nightmare({ show: false })
+const nightmare = Nightmare({
+  show: false,
+  gotoTimeout: 5000,
+  waitTimeout: 5000
+})
 
 function localPath (pathFragment) {
   return path.join(__dirname, pathFragment)
@@ -23,6 +27,7 @@ describe('Render Default Map', () => {
 
   before(async function () {
     this.timeout(40000)
+    console.log('[Render Default Map] [Before]')
     return nightmare
       .viewport(width + padding, height + padding)
       .goto('http://localhost:9757/fullscreen.html')

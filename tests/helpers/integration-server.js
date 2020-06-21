@@ -2,9 +2,16 @@ const path = require('path')
 const express = require('express')
 const servers = {}
 
+async function logAllRequests (app) {
+  app.use(function (req, res, next) {
+    console.log('[Integration Server] [Log All Requests]', req.originalUrl)
+    next()
+  })
+}
+
 async function setupStaticRoutes (app) {
   const serverPath = path.join(__dirname, '../../build/xdfmadev/parcel')
-  console.log('[Setup Static Routes]', serverPath)
+  console.log('[Integration Server] [Setup Static Routes]', serverPath)
   app.use('/', express.static(serverPath))
 }
 
@@ -24,7 +31,7 @@ async function startServer (port = 9757) {
 
   try {
     const app = express()
-    const steps = [setupStaticRoutes]
+    const steps = [logAllRequests, setupStaticRoutes]
     await Promise.all(steps.map(async fn => {
       await fn(app)
     }))

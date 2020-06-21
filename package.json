@@ -9,7 +9,8 @@
     "lint": "standard --fix",
     "parcel": "parcel build src/index.html src/fullscreen.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
-    "start": "parcel src/index.html src/fullscreen.html src/static/file.fdf-map"
+    "start": "parcel src/index.html src/fullscreen.html src/static/file.fdf-map",
+    "simulate-pr": "act pull_request -P ubuntu-latest=nektos/act-environments-ubuntu:18.04"
   },
   "standard": {
     "env": [
