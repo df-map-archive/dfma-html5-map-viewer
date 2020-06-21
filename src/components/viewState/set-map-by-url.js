@@ -14,7 +14,10 @@ export default (viewState, loadMapFromURL) => {
    */
   return async function (mapUrl) {
     if (document && document.getElementById) {
-      document.getElementById('fileName').innerText = mapUrl
+      const fileName = document.getElementById('fileName')
+      if (fileName) {
+        fileName.innerText = mapUrl
+      }
     }
 
     // fetch local file

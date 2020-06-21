@@ -11,7 +11,7 @@ describe('Drag and Drop', () => {
     const { window } = await JSDOM.fromFile(join(__dirname, 'stubs/dragAndDrop.html'))
     document = window.document
     body = document.querySelector('body')
-    console.log('Body ready for testing', body)
+    console.log('[Drag and Drop Test] Body ready for testing', body)
   })
 
   it('should export a function to test', () => {

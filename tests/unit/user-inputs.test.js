@@ -11,7 +11,7 @@ describe('User Inputs', () => {
     const { window } = await JSDOM.fromFile(join(__dirname, 'stubs/userInputs.html'))
     document = window.document
     body = document.querySelector('body')
-    console.log('Body ready for testing', body)
+    console.log('[User Inputs Test] Body ready for testing', body)
   })
 
   it('should export a function to test', () => {

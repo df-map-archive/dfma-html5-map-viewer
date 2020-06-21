@@ -7,9 +7,9 @@
     "setup": "./scripts/setup/installComposer.sh",
     "test": "standard && mocha tests/**/*.test.js --require esm",
     "lint": "standard --fix",
-    "parcel": "parcel build src/index.html src/static/file.fdf-map --public-url ./",
+    "parcel": "parcel build src/index.html src/fullscreen.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
-    "start": "parcel src/index.html src/static/file.fdf-map"
+    "start": "parcel src/index.html src/fullscreen.html src/static/file.fdf-map"
   },
   "standard": {
     "env": [
@@ -47,6 +47,7 @@
   },
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
+    "nightmare": "^3.0.2",
     "p5": "^1.0.0",
     "pako": "^1.0.11",
     "window-or-global": "^1.0.1"
@@ -61,6 +62,8 @@
     "mocha": "^8.0.1",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.4.3",
+    "pixelmatch": "^5.2.0",
+    "pngjs": "^5.0.0",
     "standard": "^14.3.4"
   }
 }
