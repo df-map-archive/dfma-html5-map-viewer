@@ -24,8 +24,11 @@ jobs:
     - name: Build project
       run: npm run build -s
 
-    - name: Cry and sob
+    - name: Report contents of build folder
       run: ls build/xdfmadev/parcel
 
-    - name: Tests
-      run: npm run test -s
+    - name: Run headless tests
+      uses: GabrielBB/xvfb-action@v1.2
+      with:
+        working-directory: ./ #optional
+        run: npm run test -s
