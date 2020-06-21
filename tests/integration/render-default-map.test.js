@@ -22,7 +22,7 @@ describe('Render Default Map', () => {
   const padding = 50
 
   before(async function () {
-    this.timeout(10000)
+    this.timeout(40000)
     return nightmare
       .viewport(width + padding, height + padding)
       .goto('http://localhost:9757/fullscreen.html')
