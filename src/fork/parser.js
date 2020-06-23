@@ -37,6 +37,8 @@ export function MapData () {
     }
   }
 
+  //TODO add getter for getting side and front views
+
   /**
      * **Internal Function***
      * Loads a layer if it is not already cached
@@ -183,6 +185,8 @@ export function MapData () {
         curMapData.blocks.push(this.tiles[curIndex])
       }
     }
+
+    //TODO parse and populate side and front view data structures.
 
     this.mapData.sort((a, b) => { // sort by layer
       return a.depth - b.depth
