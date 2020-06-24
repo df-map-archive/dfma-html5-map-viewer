@@ -5,7 +5,9 @@
   "main": "viewer.js",
   "scripts": {
     "setup": "./scripts/setup/installComposer.sh",
-    "test": "standard && mocha tests/**/*.test.js --require esm",
+    "test": "standard && npm run test:unit",
+    "test:unit": "mocha tests/unit/*.test.js --require esm",
+    "test:integration": "mocha tests/integration/*.test.js --require esm", 
     "lint": "standard --fix",
     "parcel": "parcel build src/index.html src/fullscreen.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
