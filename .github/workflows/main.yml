@@ -1,11 +1,11 @@
-name: Lint and test PR
+name: Test and Deploy via FTP
 on: 
-  pull_request:
+  push:
     branches:
       - master
 jobs:
-  test:
-    name: Linting and Testing
+  deploy:
+    name: Test and Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -28,3 +28,11 @@ jobs:
 
     - name: Run default tests
       run: npm run test -s
+
+    - name: Upload files to website
+      uses: sebastianpopp/ftp-action@releases/v2
+      with:
+        host: "ftp.mkv25.net"
+        user: ${{ secrets.FTP_SYNC_USERNAME }}
+        password: ${{ secrets.FTP_SYNC_PASSWORD }}
+        localDir: "build"
