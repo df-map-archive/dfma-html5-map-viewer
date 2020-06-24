@@ -1,0 +1,10 @@
+body, * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: #aaa;
+}
+
+default-map {
+    display: none;
+}

@@ -14,13 +14,15 @@ const methodsToAdapt = [
   'max',
   'noFill',
   'line',
+  'loadPixels',
+  'pixelDensity',
   'rect',
   'stroke',
   'strokeWeight',
   'text',
   'textAlign',
   'textFont',
-  'pixelDensity'
+  'updatePixels'
 ]
 
 module.exports = (window) => {

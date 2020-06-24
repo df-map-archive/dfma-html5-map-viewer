@@ -33,7 +33,7 @@ The viewer needs to be included into the HTML document, like so:
 
 The pixels from the viewer need somewhere to live in the HTML page, at the moment that's here:
 ```html
-<div id="canvas_container">
+<div id="p5-dfma-html5-map-viewer">
     <!-- P5.js Canvas goes here -->
 </div>
 ```

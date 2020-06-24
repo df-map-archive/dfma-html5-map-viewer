@@ -1,8 +1,7 @@
 import readMapInfoFromDocument from './read-map-info'
 
-async function setupStartingMap (document, renderer) {
+async function setupStartingMap (document, { setMapByURL, zoomTo }) {
   const mapInfo = readMapInfoFromDocument(document)
-  const { setMapByURL, zoomTo } = renderer
   const map = await setMapByURL(mapInfo.mapLink)
   zoomTo(
     mapInfo.startLevel,

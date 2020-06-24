@@ -5,11 +5,14 @@
   "main": "viewer.js",
   "scripts": {
     "setup": "./scripts/setup/installComposer.sh",
-    "test": "standard && mocha tests/**/*.test.js --require esm",
+    "test": "standard && npm run test:unit",
+    "test:unit": "mocha tests/unit/*.test.js --require esm",
+    "test:integration": "mocha tests/integration/*.test.js --require esm", 
     "lint": "standard --fix",
-    "parcel": "parcel build src/index.html src/static/file.fdf-map --public-url ./",
+    "parcel": "parcel build src/index.html src/fullscreen.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
-    "start": "parcel src/index.html src/static/file.fdf-map"
+    "start": "parcel src/index.html src/fullscreen.html src/static/file.fdf-map",
+    "simulate-pr": "act pull_request -P ubuntu-latest=nektos/act-environments-ubuntu:18.04"
   },
   "standard": {
     "env": [
@@ -48,8 +51,7 @@
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
     "p5": "^1.0.0",
-    "pako": "^1.0.11",
-    "window-or-global": "^1.0.1"
+    "pako": "^1.0.11"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -57,10 +59,14 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
+    "express": "^4.17.1",
     "jsdom": "^16.2.2",
     "mocha": "^8.0.1",
+    "nightmare": "^3.0.2",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.4.3",
+    "pixelmatch": "^5.2.0",
+    "pngjs": "^5.0.0",
     "standard": "^14.3.4"
   }
 }

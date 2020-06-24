@@ -5,3 +5,4 @@ dist
 node_modules
 .DS_Store
 composer.phar
+tests/integration/results
