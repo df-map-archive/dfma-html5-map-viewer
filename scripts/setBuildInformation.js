@@ -9,7 +9,7 @@ try {
 }
 
 const date = new Date()
-const source = `https://github.com/df-map-archive/dfma-php-private/commit/${buildHash}`
+const source = `https://github.com/df-map-archive/dfma-html5-map-viewer/commit/${buildHash}`
 
 const buildInfo = {
   buildHash,
