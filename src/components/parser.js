@@ -35,7 +35,7 @@ export function MapData () {
     }
   }
 
-  //TODO add getter for side / front views
+  // TODO add getter for side / front views
 
   /**
      * **Internal Function***
