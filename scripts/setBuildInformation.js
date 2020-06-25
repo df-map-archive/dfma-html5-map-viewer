@@ -17,6 +17,6 @@ const buildInfo = {
   source
 }
 
-fs.writeFileSync(path.join(__dirname, '../src/buildInfo.json'), JSON.stringify(buildInfo,null,2), 'utf8')
+fs.writeFileSync(path.join(__dirname, '../src/buildInfo.json'), JSON.stringify(buildInfo, null, 2), 'utf8')
 
 console.log('[Set Build Information]', buildInfo)
