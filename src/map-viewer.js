@@ -11,6 +11,7 @@ import viewState from './components/viewState/model'
 import { loadMapFromURL, loadMapFromFileSystem } from './components/readers'
 
 const p5 = require('p5')
+const buildInfo = require('./buildInfo.json')
 
 function setup () {
   let mapRenderer
@@ -19,6 +20,7 @@ function setup () {
     mapRenderer = renderer({ viewState, zoomIn, zoomOut }, window)
 
     window.p5 = p5
+    window.buildInfo = buildInfo
     Object.assign(window, parser)
     Object.assign(window, mapRenderer)
 
