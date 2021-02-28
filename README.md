@@ -40,7 +40,7 @@ npm run test:integration
 
 ## PR / Contribution Guidelines
 
-We have a [project page](https://github.com/orgs/df-map-archive/projects/1) for site wide improvements that you may be able to help with, and a [forum post](http://www.bay12forums.com/smf/index.php?topic=176276.0) that you can follow to discuss ideas. Otherwise [raise an issue](/df-map-archive/dfma-html5-map-viewer/issues) on this repo and we'll get in touch.
+We have a [project page](https://github.com/orgs/df-map-archive/projects/1) for site wide improvements that you may be able to help with, and a [forum post](http://www.bay12forums.com/smf/index.php?topic=176276.0) that you can follow to discuss ideas. Otherwise [raise an issue](https://github.com/df-map-archive/dfma-html5-map-viewer/issues/new) on this repo and we'll get in touch.
 
 Github actions are set up to run linting and tests against branches and PRs. You can and should run tests locally before submitting a PR.
 
