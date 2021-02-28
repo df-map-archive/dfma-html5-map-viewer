@@ -1,6 +1,6 @@
 {
   "name": "dfma-html5-map-viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Home for development of a new HTML5 Map Viewer for Dwarf Fortress.",
   "main": "viewer.js",
   "scripts": {
