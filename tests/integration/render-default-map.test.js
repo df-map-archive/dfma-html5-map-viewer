@@ -31,7 +31,7 @@ describe('Render Default Map', () => {
     try {
       return nightmare
         .on('console', (log, ...msg) => {
-            console.log('Nightmare Console', ...msg)
+          console.log('Nightmare Console', ...msg)
         })
         .viewport(width + padding, height + padding)
         .goto('http://localhost:9757/fullscreen.html')
