@@ -30,8 +30,12 @@ describe('Render Default Map', () => {
     console.log('[Render Default Map] [Before]')
     try {
       return nightmare
+        .on('console', (log, ...msg) => {
+            console.log('Nightmare Console', ...msg)
+        })
         .viewport(width + padding, height + padding)
         .goto('http://localhost:9757/fullscreen.html')
+        .screenshot(localPath('results/default-map-actual-pre-wait.png'), { x: 0, y: 0, width, height })
         .wait('canvas#defaultCanvas0')
         .click('canvas')
         .screenshot(localPath('results/default-map-actual.png'), { x: 0, y: 0, width, height })

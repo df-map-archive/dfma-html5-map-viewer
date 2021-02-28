@@ -5,8 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DFMA Map Viewer - Fullscreen Render Test</title>
     <link rel="stylesheet" href="./static/fullscreen.css">
+    <script>
+      console.log('fullscreen.html head script loaded')
+      function catchScriptError(ex) {
+        console.log('fulscreen.html Catch Script Error:', ex)
+      }
+      function catchScriptLoad(ev) {
+        console.log('fulscreen.html Catch Script Load:', ev)
+      }
+    </script>
+    <style>
+      html > body {
+        outline: 3px solid blue;
+        outline-offset: -3px;
+      }
+    </style>
   </head>
   <body>
+    <h1>Woot</h1>
     <div id="p5-dfma-html5-map-viewer"></div>
     <default-map>
         <map-link>/dfma/maps/2020-03/mounf-Bellsshower-A_library-251-110.fdf-map</map-link>
@@ -20,6 +36,13 @@
         <poi-description>The lower level of the dining hall - this is temporary whilst preparing to breach and secure the upper cavern.</poi-description>
         <poi-author>mounf</poi-author>
     </default-map>
-    <script src="./map-viewer.js"></script>
+    <script src="./map-viewer.js" onerror="catchScriptError" onload="catchScriptLoad"></script>
+    <script>
+      console.log('fullscreen.html body script loaded')
+      setTimeout(function () {
+        console.log('fullscreen.html setTimeout...')
+        console.log('fullscreen.html html.innerHTML:', document.body.innerHTML)
+      }, 500)
+    </script>
   </body>
 </html>

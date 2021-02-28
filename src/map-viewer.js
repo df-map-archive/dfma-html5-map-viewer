@@ -13,25 +13,30 @@ import { loadMapFromURL, loadMapFromFileSystem } from './components/readers'
 const p5 = require('p5')
 const buildInfo = require('./buildInfo.json')
 
-function setup () {
-  let mapRenderer
-  if (typeof window !== 'undefined') {
-    const { zoomIn, zoomOut } = zoom(viewState)
-    mapRenderer = renderer({ viewState, zoomIn, zoomOut }, window)
+try {
+  function setup () {
+    console.log('Map Viewer JS: Setup function loaded')
+    let mapRenderer
+    if (typeof window !== 'undefined') {
+      const { zoomIn, zoomOut } = zoom(viewState)
+      mapRenderer = renderer({ viewState, zoomIn, zoomOut }, window)
 
-    window.p5 = p5
-    window.buildInfo = buildInfo
-    Object.assign(window, parser)
-    Object.assign(window, mapRenderer)
+      window.p5 = p5
+      window.buildInfo = buildInfo
+      Object.assign(window, parser)
+      Object.assign(window, mapRenderer)
 
-    userInputs(window, { viewState })
+      userInputs(window, { viewState })
+    }
+
+    if (typeof document !== 'undefined') {
+      rewriteMapLinks(document, { setMapByURL: mapRenderer.setMapByURL })
+      setupStartingMap(document, { setMapByURL: setMapByURL(viewState, loadMapFromURL), zoomTo: zoomTo(viewState) })
+      dragAndDrop(document, window, { viewState, loadMapFromFileSystem })
+    }
   }
 
-  if (typeof document !== 'undefined') {
-    rewriteMapLinks(document, { setMapByURL: mapRenderer.setMapByURL })
-    setupStartingMap(document, { setMapByURL: setMapByURL(viewState, loadMapFromURL), zoomTo: zoomTo(viewState) })
-    dragAndDrop(document, window, { viewState, loadMapFromFileSystem })
-  }
+  setup()
+} catch (ex) {
+  console.log(`map-viewer.js Encounted error: ${ex.message}`, ex)
 }
-
-setup()
