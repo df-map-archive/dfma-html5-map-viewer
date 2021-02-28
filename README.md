@@ -26,6 +26,18 @@ When developing locally; please run:
 npm run lint && npm test -s
 ```
 
+These tests will be run on commit, and as part of PR testing.
+
+There are also integration tests that can run locally - they use a headless browser and perform a pixel diff of the rendered map with known good state.
+
+The tests can be run using:
+
+```
+npm run test:integration
+```
+
+![Expected Integration Test Result for Default Map](./tests/integration/samples/default-map-expected.png)
+
 ## PR / Contribution Guidelines
 
 We have a [project page](https://github.com/orgs/df-map-archive/projects/1) for site wide improvements that you may be able to help with, and a [forum post](http://www.bay12forums.com/smf/index.php?topic=176276.0) that you can follow to discuss ideas. Otherwise [raise an issue](/df-map-archive/dfma-html5-map-viewer/issues) on this repo and we'll get in touch.
