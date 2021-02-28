@@ -19,19 +19,13 @@ jobs:
       with:
         node-version: 12.x
     
-    - name: Set release version env from github ref
-      run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
-
-    - name: Report release version
-      run: |
-        echo $RELEASE_VERSION
-        echo ${{ env.RELEASE_VERSION }}
-
     - name: Install npm dependencies
       run: npm install
 
     - name: Build project
       run: npm run build -s
+        env:
+          RELEASE_VERSION: ${GITHUB_REF#refs/*/}
       
     - name: Report contents of build folder
       run: ls build/xdfmadev/parcel
