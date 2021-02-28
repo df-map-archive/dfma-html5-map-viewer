@@ -1,13 +1,14 @@
 import parser from './components/parser'
 import renderer from './components/renderer'
-import setupStartingMap from './components/setup-starting-map'
+import viewState from './components/viewState/model'
 import rewriteMapLinks from './components/rewrite-map-links'
-import dragAndDrop from './components/drag-and-drop'
 import userInputs from './components/user-inputs'
-import setMapByURL from './components/viewState/set-map-by-url'
 import zoom from './components/viewState/zoom'
 import zoomTo from './components/viewState/zoom-to'
-import viewState from './components/viewState/model'
+
+import setupStartingMap from './components/setup-starting-map'
+import dragAndDrop from './components/drag-and-drop'
+import setMapByURL from './components/viewState/set-map-by-url'
 import { loadMapFromURL, loadMapFromFileSystem } from './components/readers'
 
 const p5 = require('p5')
@@ -34,4 +35,8 @@ function setup () {
   }
 }
 
-setup()
+try {
+  setup()
+} catch (ex) {
+  console.log(`map-viewer.js Encounted error: ${ex.message}`, ex)
+}

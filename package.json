@@ -50,8 +50,8 @@
   },
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
-    "p5": "^1.0.0",
-    "pako": "^1.0.11"
+    "p5": "^1.2.0",
+    "pako": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
