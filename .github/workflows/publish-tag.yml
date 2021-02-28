@@ -13,6 +13,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Use Node JS LTS
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
     
     - name: Set release version env from github ref
       run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
@@ -21,3 +26,23 @@ jobs:
       run: |
         echo $RELEASE_VERSION
         echo ${{ env.RELEASE_VERSION }}
+
+    - name: Install npm dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build -s
+      
+    - name: Report contents of build folder
+      run: ls build/xdfmadev/parcel
+
+    - name: Run default tests
+      run: npm run test -s
+
+    - name: Upload files to website
+      uses: sebastianpopp/ftp-action@releases/v2
+      with:
+        host: "ftp.mkv25.net"
+        user: ${{ secrets.FTP_SYNC_USERNAME }}
+        password: ${{ secrets.FTP_SYNC_PASSWORD }}
+        localDir: "build"
