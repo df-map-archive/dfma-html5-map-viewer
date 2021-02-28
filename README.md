@@ -57,6 +57,7 @@ The master branch is protected; the default action for merge to master is to bui
 When you have a working tested, ready to release, version of the map viewer...
 
 - [x] Update the version number in package.json using [`semver`](https://semver.org/)
+- [x] Commit with the message `Prepare v{major}.{minor}.{patch} for release`
 - [x] Go and draft a [new release](https://github.com/df-map-archive/dfma-html5-map-viewer/releases/new) with the tag in the syntax `v{major}.{minor}.{patch}`
 - [x] Use the tag version as the title i.e. `v{major}.{minor}.{patch}`
 - [x] Add a short and informative description about the release
