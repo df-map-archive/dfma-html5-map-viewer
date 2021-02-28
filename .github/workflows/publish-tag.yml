@@ -1,0 +1,23 @@
+name: Publish tag via FTP
+on:
+  create:
+    tags:
+      - 'v*'
+      - 'latest'
+
+jobs:
+  test:
+    name: Test and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Set release version env from github ref
+      run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+
+    - name: Report release version
+      run: |
+        echo $RELEASE_VERSION
+        echo ${{ env.RELEASE_VERSION }}
