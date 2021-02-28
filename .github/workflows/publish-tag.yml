@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: Test and Deploy
+    name: Build and release based on tag
     runs-on: ubuntu-latest
 
     steps:
@@ -24,8 +24,8 @@ jobs:
 
     - name: Build project
       run: npm run build -s
-        env:
-          RELEASE_VERSION: ${GITHUB_REF#refs/*/}
+      env:
+        RELEASE_VERSION: ${GITHUB_REF#refs/*/}
       
     - name: Report contents of build folder
       run: ls build/xdfmadev/parcel
