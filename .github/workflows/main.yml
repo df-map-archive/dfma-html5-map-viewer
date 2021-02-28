@@ -23,9 +23,6 @@ jobs:
     - name: Build project
       run: npm run build -s
 
-    - name: Report contents of build folder
-      run: ls build/xdfmadev/parcel
-
     - name: Run default tests
       run: npm run test -s
 
