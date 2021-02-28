@@ -1,9 +1,12 @@
+#!/bin/bash
+
 rm -rf build || true
 rm -rf dist || true
 
-if [[ -z "$RELEASE_VERSION" ]]; then
+if [[ -z "$GITHUB_REF" ]]; then
   destinationFolder="build/xdfmadev/parcel"
 else
+  RELEASE_VERSION=${GITHUB_REF#refs/*/}
   destinationFolder="build/viewer/js/$RELEASE_VERSION"
 fi
 
