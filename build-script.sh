@@ -4,7 +4,7 @@ rm -rf dist || true
 if [[ -z "$RELEASE_VERSION" ]]; then
   destinationFolder="build/xdfmadev/parcel"
 else
-  destinationFolder="build/$RELEASE_VERSION"
+  destinationFolder="build/viewer/js/$RELEASE_VERSION"
 fi
 
 echo "Making $destinationFolder"

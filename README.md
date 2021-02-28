@@ -52,6 +52,19 @@ Please ensure that tests pass; and that you've added adequate testing around any
 
 The master branch is protected; the default action for merge to master is to build and deploy the viewer to the [/xdfmadev/parcel/](https://mkv25.net/dfma/xdfmadev/parcel/index.html) folder on the DFMA website.
 
+## Creating a release
+
+When you have a working tested, ready to release, version of the map viewer...
+
+- [x] Update the version number in package.json using [`semver`](https://semver.org/)
+- [x] Go and draft a [new release](https://github.com/df-map-archive/dfma-html5-map-viewer/releases/new) with the tag in the syntax `v{major}.{minor}.{patch}`
+- [x] Use the tag version as the title i.e. `v{major}.{minor}.{patch}`
+- [x] Add a short and informative description about the release
+- [x] Submit the `Publish release` button
+
+This will trigger a deployment pipeline to upload the compiled files to:
+- `https://mkv25.net/dfma/viewer/js/$RELEASE_VERSION`
+
 ## Credits
 
 Credit where credit due:
