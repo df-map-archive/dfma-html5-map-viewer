@@ -3,11 +3,12 @@
   "version": "1.0.1",
   "description": "Home for development of a new HTML5 Map Viewer for Dwarf Fortress.",
   "main": "viewer.js",
+  "type": "module",
   "scripts": {
     "setup": "./scripts/setup/installComposer.sh",
     "test": "standard && npm run test:unit",
-    "test:unit": "mocha tests/unit/*.test.js --require esm",
-    "test:integration": "mocha tests/integration/*.test.js --require esm",
+    "test:unit": "mocha tests/unit/*.test.js",
+    "test:integration": "mocha tests/integration/*.test.js",
     "lint": "standard --fix",
     "parcel": "parcel build src/map-viewer.js src/index.html src/fullscreen.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
@@ -50,23 +51,23 @@
   },
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
-    "p5": "^1.2.0",
-    "pako": "^2.0.3"
+    "p5": "^1.4.1",
+    "pako": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "jsdom": "^16.2.2",
-    "mocha": "^8.0.1",
+    "express": "^4.17.3",
+    "jsdom": "^19.0.0",
+    "mocha": "^9.2.2",
     "nightmare": "^3.0.2",
-    "parcel-bundler": "^1.12.4",
-    "parcel-plugin-static-files-copy": "^2.4.3",
-    "pixelmatch": "^5.2.0",
-    "pngjs": "^5.0.0",
-    "standard": "^14.3.4"
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "pixelmatch": "^5.2.1",
+    "pngjs": "^6.0.0",
+    "standard": "^16.0.4"
   }
 }

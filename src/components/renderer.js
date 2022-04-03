@@ -1,4 +1,4 @@
-import p5adapter from '../adapters/p5adapter'
+import p5adapter from '../adapters/p5adapter.js'
 
 export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
   const p5 = p5adapter(browserWindow)

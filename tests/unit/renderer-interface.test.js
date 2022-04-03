@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import unitUnderTest from '../../src/components/renderer'
+import unitUnderTest from '../../src/components/renderer.js'
 
 describe('Renderer Interface', () => {
   const viewState = {

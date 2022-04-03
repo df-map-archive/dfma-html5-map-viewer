@@ -1,10 +1,14 @@
-const { expect } = require('chai')
-const Nightmare = require('nightmare')
-const pixelmatch = require('pixelmatch')
-const path = require('path')
-const fs = require('fs')
-const { PNG } = require('pngjs')
-require('../helpers/start-server')
+import { expect } from 'chai'
+import Nightmare from 'nightmare'
+import pixelmatch from 'pixelmatch'
+import path from 'path'
+import fs from 'fs'
+import { PNG } from 'pngjs'
+import '../helpers/start-server.js'
+
+import { fileURLToPath } from 'url'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 const nightmare = Nightmare({
   show: false,
   gotoTimeout: 5000,

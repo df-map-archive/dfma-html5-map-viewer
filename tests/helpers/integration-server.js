@@ -1,5 +1,8 @@
-const path = require('path')
-const express = require('express')
+import path from 'path'
+import express from 'express'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const servers = {}
 
 async function logAllRequests (app) {
@@ -55,4 +58,4 @@ async function startServer (port = 9757) {
   return ready
 }
 
-module.exports = startServer
+export default startServer

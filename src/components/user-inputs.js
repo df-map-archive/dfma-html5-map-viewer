@@ -1,4 +1,4 @@
-import p5adapter from '../adapters/p5adapter'
+import p5adapter from '../adapters/p5adapter.js'
 
 function registerOn (browserWindow, { viewState }) {
   const p5 = p5adapter(browserWindow)

@@ -25,7 +25,7 @@ const methodsToAdapt = [
   'updatePixels'
 ]
 
-module.exports = (window) => {
+export default (window) => {
   const methods = methodsToAdapt.reduce((acc, methodName) => {
     acc[methodName] = adaptToObject(methodName, window)
     return acc

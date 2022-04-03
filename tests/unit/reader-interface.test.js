@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import unitUnderTest from '../../src/components/readers'
+import unitUnderTest from '../../src/components/readers.js'
 
 describe('Reader Interface', () => {
   it('should expose the expected properties on the default interface', () => {
