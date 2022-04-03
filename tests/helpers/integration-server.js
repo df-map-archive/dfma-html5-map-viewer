@@ -1,9 +1,9 @@
 import path from 'path'
 import express from 'express'
-const servers = {}
-
 import { fileURLToPath } from 'url'
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const servers = {}
 
 async function logAllRequests (app) {
   app.use(function (req, res, next) {
