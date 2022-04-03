@@ -1,4 +1,4 @@
-const startServer = require('./integration-server')
+import startServer from './integration-server.js'
 
 let closeTimeout
 

@@ -1,7 +1,10 @@
 import { expect } from 'chai'
-import { join } from 'path'
+import { join, dirname } from 'path'
 import jsdom from 'jsdom'
-import unitUnderTest from '../../src/components/drag-and-drop'
+import unitUnderTest from '../../src/components/drag-and-drop.js'
+
+import { fileURLToPath } from 'url'
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const { JSDOM } = jsdom
 

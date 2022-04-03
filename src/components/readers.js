@@ -1,5 +1,5 @@
-import { MapData } from './parser'
-const pako = require('pako')
+import { MapData } from './parser.js'
+import pako from 'pako'
 
 const browserWindow = (typeof window !== 'undefined') ? window : {}
 const fetch = browserWindow.fetch

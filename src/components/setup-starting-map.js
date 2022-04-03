@@ -1,4 +1,4 @@
-import readMapInfoFromDocument from './read-map-info'
+import readMapInfoFromDocument from './read-map-info.js'
 
 async function setupStartingMap (document, { setMapByURL, zoomTo }) {
   const mapInfo = readMapInfoFromDocument(document)
