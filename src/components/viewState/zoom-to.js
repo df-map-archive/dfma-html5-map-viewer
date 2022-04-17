@@ -34,7 +34,7 @@ export default (viewState) => {
     const { canvasWidth, canvasHeight } = viewState
 
     viewState.messages.push(`Canvas width: ${canvasWidth}, height: ${canvasHeight}`)
-  
+
     if (!mapData) {
       return
     }

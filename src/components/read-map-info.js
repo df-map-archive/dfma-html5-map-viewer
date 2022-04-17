@@ -31,7 +31,6 @@ function readMapInfoFromDocument (parent) {
     }
   }
 
-
   const mapInfo = {
     mapLink: readStringTag('map-link'),
     mapDescription: readStringTag('map-description'),
