@@ -33,6 +33,8 @@ export default (viewState) => {
     const { mapData } = dfMapData
     const { canvasWidth, canvasHeight } = viewState
 
+    viewState.messages.push(`Canvas width: ${canvasWidth}, height: ${canvasHeight}`)
+  
     if (!mapData) {
       return
     }
@@ -46,6 +48,7 @@ export default (viewState) => {
     }
 
     if (!found) {
+      viewState.messages.push(`Layer ${layer} not found in map layers: [${mapData.reduce(m => (m || {}).depth || 0)}]`)
       return
     }
 
