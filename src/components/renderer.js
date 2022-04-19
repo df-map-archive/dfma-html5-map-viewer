@@ -100,7 +100,7 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
       p5.textAlign(browserWindow.LEFT)
       p5.text('Layer: ' + viewState.dfMapData.mapData[viewState.idx].depth, textLeftOffset, textTopOffset)
       p5.text('Zoom: ' + viewState.scale.toFixed(2), textLeftOffset, textTopOffset + 20)
-      p5.text(`X: ${selectedX} ${viewState.imageX}, Y: ${selectedY} ${viewState.imageY}`, textLeftOffset, textTopOffset + 40)
+      p5.text(`X: ${selectedX} ${viewState.imageX.toFixed(2)}, Y: ${selectedY} ${viewState.imageY.toFixed(2)}`, textLeftOffset, textTopOffset + 40)
       viewState.messages.forEach((line, index) => {
         p5.text(`${index}: ${line}`, textLeftOffset, textTopOffset + 60 + (index * 20))
       })

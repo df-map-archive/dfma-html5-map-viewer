@@ -29,13 +29,15 @@ export default (viewState) => {
     let found = false
     let curLayer
 
-    const dfMapData = viewState.dfMapData || {}
+    const emptyMap = {}
+    const dfMapData = viewState.dfMapData || emptyMap
     const { mapData } = dfMapData
     const { canvasWidth, canvasHeight } = viewState
 
     viewState.messages.push(`Canvas width: ${canvasWidth}, height: ${canvasHeight}`)
 
     if (!mapData) {
+      viewState.messages.push(`Map data not available: ${JSON.stringify(dfMapData)}`)
       return
     }
 
@@ -48,8 +50,13 @@ export default (viewState) => {
     }
 
     if (!found) {
-      viewState.messages.push(`Layer ${layer} not found in map layers: [${mapData.reduce(m => (m || {}).depth || 0)}]`)
-      return
+      viewState.messages.push(`Layer ${layer} not found in map layers: [${mapData.map(m => (m || {}).depth || -1)}]`)
+      if (mapData.length > 0) {
+        curLayer = mapData[0]
+        viewState.messages.push(`Defaulting to first layer: ${curLayer.depth}`)
+      }
+    } else {
+      viewState.messages.push(`Layer ${layer} found in map layers: [${mapData.map(m => (m || {}).depth || -1)}]`)
     }
 
     viewState.idx = curLayer.index
