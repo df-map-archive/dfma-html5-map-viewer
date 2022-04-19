@@ -31,6 +31,20 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
     p5.textAlign(browserWindow.CENTER, browserWindow.CENTER)
   }
 
+  function drawMessages ({ messages }) {
+    const textLeftOffset = 15
+    const textTopOffset = 20
+
+    const messagesToShow = messages.slice(Math.max(messages.length - 10, 0))
+    if (messagesToShow.length === 0) {
+      messagesToShow.push('No messages to show')
+    }
+    messagesToShow.forEach((line, index) => {
+      const lineNo = Math.max(messages.length - 10, 0) + index
+      p5.text(`${lineNo}: ${line}`, textLeftOffset, textTopOffset + 60 + (index * 20))
+    })
+  }
+
   /**
    * P5 Draw Function
    *
@@ -99,7 +113,9 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
       p5.textAlign(browserWindow.LEFT)
       p5.text('Layer: ' + viewState.dfMapData.mapData[viewState.idx].depth, textLeftOffset, textTopOffset)
       p5.text('Zoom: ' + viewState.scale.toFixed(2), textLeftOffset, textTopOffset + 20)
-      p5.text(`X: ${selectedX} ${viewState.imageX}, Y: ${selectedY} ${viewState.imageY}`, textLeftOffset, textTopOffset + 40)
+      p5.text(`X: ${selectedX} ${viewState.imageX.toFixed(2)}, Y: ${selectedY} ${viewState.imageY.toFixed(2)}`, textLeftOffset, textTopOffset + 40)
+
+      drawMessages(viewState)
 
       if (viewState.showTiles) {
         showTiles()

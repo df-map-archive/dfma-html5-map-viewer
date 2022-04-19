@@ -46,6 +46,8 @@ export default (viewState) => {
     viewState.imageX = canvasWidth / 2 - viewState.imgWidth * ratioX
     viewState.imageY = canvasHeight / 2 - viewState.imgHeight * ratioY
     viewState.originalImgWidth = 0
+
+    viewState.messages.push(`Zoomed at: ${viewState.scale.toFixed(3)}`)
   }
 
   return {

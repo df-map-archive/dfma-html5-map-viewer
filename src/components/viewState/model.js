@@ -12,7 +12,8 @@ const viewState = {
   clickX: 0,
   clickY: 0,
   idx: 0,
-  scale: 0
+  scale: 0,
+  messages: ['Initial view state']
 }
 
 export default viewState
