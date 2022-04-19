@@ -1,6 +1,6 @@
 {
   "name": "dfma-html5-map-viewer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Home for development of a new HTML5 Map Viewer for Dwarf Fortress.",
   "main": "viewer.js",
   "type": "module",
@@ -45,6 +45,11 @@
     "P5"
   ],
   "author": "DF Map Archive",
+  "contributors": [
+    { "name": "Jacob Blomquist", "url": "https://github.com/JacobRBlomquist" },
+    { "name": "John Beech", "url": "https://github.com/johnbeech" },
+    { "name": "Max Heisinger", "url": "https://github.com/maximaximal" }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/df-map-archive/dfma-html5-map-viewer/issues"

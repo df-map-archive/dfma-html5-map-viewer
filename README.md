@@ -72,3 +72,9 @@ Credit where credit due:
 - Thanks to [Jacob Blomquist](https://github.com/JacobRBlomquist) for his [original and continued work](https://github.com/JacobRBlomquist/DFMA-Viewer-HTML5) on the HTML version of the map viewer 
 - [p5.js](https://p5js.org/) - for a fantastic canvas interface
 - [pako](https://github.com/nodeca/pako) - for a fantastic zlib implementation
+
+## Contributions
+
+- [Jacob Blomquist](https://github.com/JacobRBlomquist) - original implementation of a HTML based decoder and renderer
+- [John Beech](https://github.com/johnbeech) - refactor and redesign to work with DFMA (original author of historic Flash viewer)
+- [Max Heisinger](https://github.com/maximaximal) - remove `pixelDensity` call to support high-resolution fonts
