@@ -29,7 +29,6 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
     p5.background(0)
     p5.textFont('Helvetica', 15)
     p5.textAlign(browserWindow.CENTER, browserWindow.CENTER)
-    p5.pixelDensity(1)
   }
 
   /**
