@@ -9,8 +9,23 @@ function registerOn (browserWindow, { viewState }) {
    * Called whenever the mouse is pressed
    */
   function mousePressed () {
+    if (browserWindow.mouseX < 0 || browserWindow.mouseX > viewState.canvasWidth)
+      return
+    if (browserWindow.mouseY < 0 || browserWindow.mouseY > viewState.canvasHeight)
+      return
+
     viewState.clickX = browserWindow.mouseX
     viewState.clickY = browserWindow.mouseY
+    viewState.dragActive = true
+  }
+
+  /**
+   * P5 MouseReleased
+   *
+   * Called whenever the mouse is released
+   */
+  function mouseReleased () {
+    viewState.dragActive = false
   }
 
   /**
@@ -19,6 +34,9 @@ function registerOn (browserWindow, { viewState }) {
    * Called whenever the mouse is dragged
    */
   function mouseDragged () {
+    if (!viewState.dragActive)
+      return
+
     const xDif = (browserWindow.mouseX - viewState.clickX)
     const yDif = (browserWindow.mouseY - viewState.clickY)
     viewState.clickX = browserWindow.mouseX
@@ -26,6 +44,7 @@ function registerOn (browserWindow, { viewState }) {
     viewState.imageX += xDif
     viewState.imageY += yDif
   }
+
   /**
    * P5 KeyPressed function
    *
@@ -65,6 +84,7 @@ function registerOn (browserWindow, { viewState }) {
   browserWindow.keyPressed = keyPressed
   browserWindow.mouseDragged = mouseDragged
   browserWindow.mousePressed = mousePressed
+  browserWindow.mouseReleased = mouseReleased
 }
 
 export default registerOn
