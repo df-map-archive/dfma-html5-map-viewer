@@ -9,10 +9,11 @@ function registerOn (browserWindow, { viewState }) {
    * Called whenever the mouse is pressed
    */
   function mousePressed () {
-    if (browserWindow.mouseX < 0 || browserWindow.mouseX > viewState.canvasWidth)
+    if (browserWindow.mouseX < 0 || browserWindow.mouseX > viewState.canvasWidth) {
       return
-    if (browserWindow.mouseY < 0 || browserWindow.mouseY > viewState.canvasHeight)
+    } if (browserWindow.mouseY < 0 || browserWindow.mouseY > viewState.canvasHeight) {
       return
+    }
 
     viewState.clickX = browserWindow.mouseX
     viewState.clickY = browserWindow.mouseY
@@ -34,8 +35,9 @@ function registerOn (browserWindow, { viewState }) {
    * Called whenever the mouse is dragged
    */
   function mouseDragged () {
-    if (!viewState.dragActive)
+    if (!viewState.dragActive) {
       return
+    }
 
     const xDif = (browserWindow.mouseX - viewState.clickX)
     const yDif = (browserWindow.mouseY - viewState.clickY)
