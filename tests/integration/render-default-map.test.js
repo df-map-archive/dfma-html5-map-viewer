@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import Nightmare from 'nightmare'
+import { chromium } from 'playwright'
 import pixelmatch from 'pixelmatch'
 import path from 'path'
 import fs from 'fs'
@@ -8,14 +8,6 @@ import '../helpers/start-server.js'
 
 import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
-
-const nightmare = Nightmare({
-  show: false,
-  gotoTimeout: 5000,
-  waitTimeout: 20000
-})
 
 function localPath (pathFragment) {
   return path.join(__dirname, pathFragment)
@@ -32,32 +24,20 @@ describe('Render Default Map', () => {
   const padding = 50
 
   before(async function () {
-    this.timeout(40000)
-    console.log('[Render Default Map] [Before]')
-    try {
-      return nightmare
-        .on('console', (log, ...msg) => {
-          console.log('Nightmare Console', log, ...msg)
-        })
-        .viewport(width + padding, height + padding)
-        .goto('http://localhost:9757/fullscreen.html')
-        .screenshot(localPath('results/default-map-actual-pre-wait.png'), { x: 0, y: 0, width, height })
-        .wait(4000)
-        .screenshot(localPath('results/why-no-canvas.png'), { x: 0, y: 0, width, height })
-        .wait('#defaultCanvas0')
-        .click('canvas')
-        .screenshot(localPath('results/default-map-actual.png'), { x: 0, y: 0, width, height })
-        .evaluate(() => document.querySelector('#defaultCanvas0').className)
-        .end()
-        .then((result) => {
-          console.log('[Before Render Default Map]', result)
-        })
-        .catch(error => {
-          console.error('[Before Render Default Map] Failed:', error)
-        })
-    } catch (ex) {
-      console.log('[Before Render Defaults Map] [Error]', ex)
-    }
+    this.timeout(20000)
+    // Make sure to run headed.
+    const browser = await chromium.launch({ headless: true, width, height, padding })
+
+    // Setup context however you like.
+    const context = await browser.newContext({ /* pass any options */ })
+    await context.route('**/*', route => route.continue())
+
+    // Pause the page, and start recording manually.
+    const page = await context.newPage()
+    await page.goto('http://localhost:9757/fullscreen.html')
+    await page.locator('canvas').screenshot({ path: localPath('results/default-map-actual.png'), width, height })
+    
+    browser.close()
   })
 
   it('Should render map data to the page', () => {
