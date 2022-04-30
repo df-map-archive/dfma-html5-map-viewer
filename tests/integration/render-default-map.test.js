@@ -28,15 +28,19 @@ describe('Render Default Map', () => {
     // Make sure to run headed.
     const browser = await chromium.launch({ headless: true, width, height, padding })
 
-    // Setup context however you like.
-    const context = await browser.newContext({ /* pass any options */ })
-    await context.route('**/*', route => route.continue())
+    try {
+      // Setup context however you like.
+      const context = await browser.newContext({ /* pass any options */ })
+      await context.route('**/*', route => route.continue())
 
-    // Pause the page, and start recording manually.
-    const page = await context.newPage()
-    await page.goto('http://localhost:9757/fullscreen.html')
-    await page.locator('canvas').screenshot({ path: localPath('results/default-map-actual.png'), width, height })
-
+      // Pause the page, and start recording manually.
+      const page = await context.newPage()
+      await page.goto('http://localhost:9757/fullscreen.html')
+      await page.locator('canvas').screenshot({ path: localPath('results/default-map-actual.png'), width, height })
+    } catch (ex) {
+      console.error('Unable to setup page:', ex)
+    }
+    
     browser.close()
   })
 
