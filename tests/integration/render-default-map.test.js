@@ -40,7 +40,7 @@ describe('Render Default Map', () => {
     } catch (ex) {
       console.error('Unable to setup page:', ex)
     }
-    
+
     browser.close()
   })
 
