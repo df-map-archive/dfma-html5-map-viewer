@@ -36,7 +36,7 @@ describe('Render Default Map', () => {
     const page = await context.newPage()
     await page.goto('http://localhost:9757/fullscreen.html')
     await page.locator('canvas').screenshot({ path: localPath('results/default-map-actual.png'), width, height })
-    
+
     browser.close()
   })
 

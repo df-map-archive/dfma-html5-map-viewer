@@ -1,10 +1,9 @@
 import fs from 'fs'
-import path from 'path'
+import path, { dirname } from 'path'
 
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'url'
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 let buildHash
 try {
