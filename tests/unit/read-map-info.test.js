@@ -32,7 +32,8 @@ describe('Read map info', () => {
       startOrientation: 'top',
       poiTitle: 'Temporary fort',
       poiDescription: 'The lower level of the dining hall - this is temporary whilst preparing to breach and secure the upper cavern.',
-      poiAuthor: 'mounf'
+      poiAuthor: 'mounf',
+      hideText: false
     })
   })
 })
