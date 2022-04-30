@@ -17,11 +17,11 @@ jobs:
       with:
         node-version: 16.x
 
-    - name: Use Playwright
-      uses: microsoft/playwright-github-action@v1
-
     - name: Install npm dependencies
       run: npm install
+
+    - name: Install playwright dependencies
+      run: npx playwright install-deps chromium
 
     - name: Build project
       run: npm run build -s
