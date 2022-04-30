@@ -5,6 +5,15 @@ function readMapInfoFromDocument (parent) {
     return defaultMap.getElementsByTagName(tagName)[0].textContent
   }
 
+  function readBooleanTag (tagName, defaultValue) {
+    try {
+      const tagValue = readTag(tagName) || defaultValue
+      return !!JSON.parse(tagValue)
+    } catch (ex) {
+      return defaultValue
+    }
+  }
+
   function readIntegerTag (tagName, defaultValue) {
     try {
       const tagValue = readTag(tagName) || defaultValue
@@ -41,7 +50,8 @@ function readMapInfoFromDocument (parent) {
     startOrientation: readStringTag('start-orientation'),
     poiTitle: readStringTag('poi-title'),
     poiDescription: readStringTag('poi-description'),
-    poiAuthor: readStringTag('poi-author')
+    poiAuthor: readStringTag('poi-author'),
+    hideText: readBooleanTag('hide-text', false)
   }
 
   mapInfo.startZoom = mapInfo.startZoom || 1.0

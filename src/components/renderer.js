@@ -104,18 +104,21 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
       p5.line(canvasWidth / 2, canvasHeight / 2 - crosshairSize, canvasWidth / 2, canvasHeight / 2 + crosshairSize)
 
       // text
-      const textLeftOffset = 15
-      const textTopOffset = 20
-      p5.stroke(255)
-      p5.noFill()
-      p5.strokeWeight(1)
-      p5.textFont('Helvetica', 12)
-      p5.textAlign(browserWindow.LEFT)
-      p5.text('Layer: ' + viewState.dfMapData.mapData[viewState.idx].depth, textLeftOffset, textTopOffset)
-      p5.text('Zoom: ' + viewState.scale.toFixed(2), textLeftOffset, textTopOffset + 20)
-      p5.text(`X: ${selectedX} ${viewState.imageX.toFixed(2)}, Y: ${selectedY} ${viewState.imageY.toFixed(2)}`, textLeftOffset, textTopOffset + 40)
+      const drawText = !viewState.hideText
+      if (drawText) {
+        const textLeftOffset = 15
+        const textTopOffset = 20
+        p5.stroke(255)
+        p5.noFill()
+        p5.strokeWeight(1)
+        p5.textFont('Helvetica', 12)
+        p5.textAlign(browserWindow.LEFT)
+        p5.text('Layer: ' + viewState.dfMapData.mapData[viewState.idx].depth, textLeftOffset, textTopOffset)
+        p5.text('Zoom: ' + viewState.scale.toFixed(2), textLeftOffset, textTopOffset + 20)
+        p5.text(`X: ${selectedX} ${viewState.imageX.toFixed(2)}, Y: ${selectedY} ${viewState.imageY.toFixed(2)}`, textLeftOffset, textTopOffset + 40)
 
-      drawMessages(viewState)
+        drawMessages(viewState)
+      }
 
       if (viewState.showTiles) {
         showTiles()
@@ -136,7 +139,8 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
       p5.stroke(255)
       p5.fill(255)
 
-      p5.text('Loading...', canvasWidth / 2, canvasHeight / 2)
+      const loadingMessage = viewState.dfMapData ? 'Map Data Loaded...' : 'Loading... ' + Math.random().toFixed(4)
+      p5.text(loadingMessage, canvasWidth / 2, canvasHeight / 2)
     }
   }
 

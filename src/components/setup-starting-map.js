@@ -5,7 +5,10 @@ async function setupStartingMap (document, { setMapByURL, zoomTo }) {
   const mapInfo = readMapInfoFromDocument(document)
   const map = await setMapByURL(mapInfo.mapLink)
   console.log('Starting map:', map, mapInfo)
+  
   viewState.messages.push(`Starting map: start level: ${mapInfo.startLevel}, start zoom: ${mapInfo.startZoom}`)
+  Object.assign(viewState, mapInfo)
+
   zoomTo(
     mapInfo.startLevel,
     mapInfo.startZoom,

@@ -9,10 +9,12 @@ import '../helpers/start-server.js'
 import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+
 const nightmare = Nightmare({
   show: false,
   gotoTimeout: 5000,
-  waitTimeout: 5000
+  waitTimeout: 20000
 })
 
 function localPath (pathFragment) {
@@ -35,12 +37,14 @@ describe('Render Default Map', () => {
     try {
       return nightmare
         .on('console', (log, ...msg) => {
-          console.log('Nightmare Console', ...msg)
+          console.log('Nightmare Console', log, ...msg)
         })
         .viewport(width + padding, height + padding)
         .goto('http://localhost:9757/fullscreen.html')
         .screenshot(localPath('results/default-map-actual-pre-wait.png'), { x: 0, y: 0, width, height })
-        .wait('canvas#defaultCanvas0')
+        .wait(4000)
+        .screenshot(localPath('results/why-no-canvas.png'), { x: 0, y: 0, width, height })
+        .wait('#defaultCanvas0')
         .click('canvas')
         .screenshot(localPath('results/default-map-actual.png'), { x: 0, y: 0, width, height })
         .evaluate(() => document.querySelector('#defaultCanvas0').className)

@@ -13,6 +13,7 @@ const viewState = {
   clickY: 0,
   idx: 0,
   scale: 0,
+  hideText: true,
   messages: ['Initial view state']
 }
 
