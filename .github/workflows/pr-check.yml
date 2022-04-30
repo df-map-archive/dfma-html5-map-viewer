@@ -17,6 +17,9 @@ jobs:
       with:
         node-version: 16.x
 
+    - name: Use Playwright
+      uses: microsoft/playwright-github-action@v1
+
     - name: Install npm dependencies
       run: npm install
 
