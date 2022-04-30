@@ -1,17 +1,19 @@
 import p5adapter from '../adapters/p5adapter.js'
 
+function isMouseOutOfBounds ({ mouseX, mouseY }, viewState) {
+  return mouseX < 0 || mouseX > viewState.canvasWidth ||
+    mouseY < 0 || mouseY > viewState.canvasHeight
+}
+
 function registerOn (browserWindow, { viewState }) {
   const p5 = p5adapter(browserWindow)
-
   /**
    * P5 MousePressed
    *
    * Called whenever the mouse is pressed
    */
   function mousePressed () {
-    if (browserWindow.mouseX < 0 || browserWindow.mouseX > viewState.canvasWidth) {
-      return
-    } if (browserWindow.mouseY < 0 || browserWindow.mouseY > viewState.canvasHeight) {
+    if (isMouseOutOfBounds({ browserWindow }, viewState)) {
       return
     }
 
