@@ -21,7 +21,7 @@ jobs:
       run: npm install
 
     - name: Install playwright dependencies
-      run: npx playwright install-deps chromium
+      run: npx playwright install --with-deps
 
     - name: Build project
       run: npm run build -s
