@@ -25,3 +25,6 @@ jobs:
 
     - name: Run default tests
       run: npm run test -s
+
+    - name: Run integration tests
+      run: npm run test:integration -s
