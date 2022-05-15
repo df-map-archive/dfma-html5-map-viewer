@@ -22,7 +22,9 @@ const methodsToAdapt = [
   'text',
   'textAlign',
   'textFont',
-  'updatePixels'
+  'updatePixels',
+  'push',
+  'pop'
 ]
 
 export default (window) => {

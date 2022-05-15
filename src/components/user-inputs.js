@@ -1,4 +1,5 @@
 import p5adapter from '../adapters/p5adapter.js'
+import { registerUI, uiCaptureMouse, clearButtonState } from './ui.js'
 
 function isMouseOutOfBounds ({ mouseX, mouseY }, viewState) {
   return mouseX < 0 || mouseX > viewState.canvasWidth ||
@@ -7,13 +8,21 @@ function isMouseOutOfBounds ({ mouseX, mouseY }, viewState) {
 
 function registerOn (browserWindow, { viewState }) {
   const p5 = p5adapter(browserWindow)
+  registerUI(browserWindow, { viewState })
+
   /**
    * P5 MousePressed
    *
    * Called whenever the mouse is pressed
    */
-  function mousePressed () {
+  function mousePressed (event) {
+    event.preventDefault()
     if (isMouseOutOfBounds(browserWindow, viewState)) {
+      return
+    }
+
+    // UI capture mouse
+    if (uiCaptureMouse(browserWindow, { viewState })) {
       return
     }
 
@@ -31,6 +40,7 @@ function registerOn (browserWindow, { viewState }) {
    */
   function mouseReleased () {
     viewState.dragActive = false
+    clearButtonState(browserWindow, { viewState })
   }
 
   /**

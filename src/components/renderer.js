@@ -1,3 +1,4 @@
+
 import p5adapter from '../adapters/p5adapter.js'
 
 export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
@@ -102,6 +103,26 @@ export default function ({ viewState, zoomIn, zoomOut }, browserWindow) {
       p5.strokeWeight(2)
       p5.line(canvasWidth / 2 - crosshairSize, canvasHeight / 2, canvasWidth / 2 + crosshairSize, canvasHeight / 2)
       p5.line(canvasWidth / 2, canvasHeight / 2 - crosshairSize, canvasWidth / 2, canvasHeight / 2 + crosshairSize)
+
+      // Draw UI
+
+      p5.push() // temporary for now
+
+      for (const buttonName in viewState.ui.buttons) {
+        const button = viewState.ui.buttons[buttonName]
+        if (button.active) {
+          p5.stroke(0, 255, 0)
+          p5.fill(255, 0, 255)
+        } else {
+          p5.fill(0, 255, 0)
+          p5.stroke(255, 0, 255)
+        }
+        p5.rect(button.xPos, button.yPos, button.width, button.height)
+        p5.stroke(0)
+        p5.text(button.xPos + 2, button.yPos + 2, button.text)
+      }
+
+      p5.pop()
 
       // text
       const drawText = !viewState.hideText
