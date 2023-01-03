@@ -35,6 +35,8 @@ export function MapData () {
     }
   }
 
+  // TODO add getter for side / front views
+
   /**
      * **Internal Function***
      * Loads a layer if it is not already cached
