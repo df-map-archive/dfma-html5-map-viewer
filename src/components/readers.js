@@ -1,4 +1,4 @@
-import { MapData } from './parser.js'
+import { MapData } from './parser-g1.js'
 import pako from 'pako'
 
 const browserWindow = (typeof window !== 'undefined') ? window : {}
