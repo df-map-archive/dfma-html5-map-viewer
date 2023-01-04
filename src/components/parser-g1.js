@@ -178,7 +178,7 @@ export class MapData {
 
     console.log('Decode Map : Phase 1 Complete')
 
-    let tile, tileBitmap
+    let tile
 
     this.tileIndex = []
 
@@ -230,22 +230,26 @@ export class MapData {
       } catch (ex) {
         console.error('Unable to read tile bytes:', ex.message)
         throw new Error('Unable to read tile bytes: ' + ex.message)
-        return
       }
 
       this.tileIndex.push(tile)
     }
 
     console.log('Decode Map : Phase 2B Complete')
+    console.log('Data View', { data: data.byteLength, dataPointer })
+    const remainingBytes = data.byteLength - dataPointer
+    const bytesPerTile = remainingBytes / (this.numberOfMapLayers * this.mapHeightInTiles * this.mapWidthInTiles)
+    const overflow = remainingBytes % (this.numberOfMapLayers * this.mapHeightInTiles * this.mapWidthInTiles)
+    console.log('  ', { bytesPerTile, remainingBytes, numberOfTiles: this.numberOfTiles, overflow })
 
-    let varSize
+    let readMethod
 
     if (this.numberOfTiles <= 255) {
-      varSize = 1 // use uint8
+      readMethod = readUnsignedByte
     } else if (this.numberOfTiles <= 65536) {
-      varSize = 2 // use uint16
+      readMethod = readUnsignedShort
     } else {
-      varSize = 3 // use uint32
+      readMethod = readUnsignedInt
     }
 
     let index
@@ -258,38 +262,13 @@ export class MapData {
           mapLayer.tileData[i] = new Array(mapLayer.heightInTiles)
 
           for (j = 0; j < mapLayer.heightInTiles; j++) {
-            switch (varSize) {
-              case 1:
-                index = readUnsignedByte()
-                break
-              case 2:
-                index = readUnsignedShort()
-                break
-              case 3:
-              default:
-                index = readUnsignedInt()
-                break
-            }
+            index = readMethod
             mapLayer.tileData[i][j] = index
           }
         }
       }
     } catch (ex) {
-      let varType
-
-      switch (varSize) {
-        case 1:
-          varType = 'unsigned byte'
-          break
-        case 2:
-          varType = 'unsigned short'
-          break
-        case 3:
-        default:
-          varType = 'unsigned int'
-          break
-      }
-      throw new Error(ex.message + ' Happened while reading ' + varType + ' map indexes')
+      throw new Error(ex.message + ' Happened while using ' + readMethod + ' to map indexes')
     }
 
     console.log('Decode Map : Phase 3 Complete')
