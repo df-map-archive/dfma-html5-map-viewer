@@ -11,8 +11,8 @@ import dragAndDrop from './components/drag-and-drop'
 import setMapByURL from './components/viewState/set-map-by-url'
 import { loadMapFromURL, loadMapFromFileSystem } from './components/readers'
 
-const p5 = require('p5')
-const buildInfo = require('./buildInfo.json')
+import p5 from 'p5'
+import buildInfo from './buildInfo.json'
 
 function setup () {
   let mapRenderer
@@ -29,7 +29,7 @@ function setup () {
   }
 
   if (typeof document !== 'undefined') {
-    rewriteMapLinks(document, { setMapByURL: mapRenderer.setMapByURL })
+    rewriteMapLinks(document, { setMapByURL: setMapByURL(viewState, loadMapFromURL) })
     setupStartingMap(document, { setMapByURL: setMapByURL(viewState, loadMapFromURL), zoomTo: zoomTo(viewState) })
     dragAndDrop(document, window, { viewState, loadMapFromFileSystem })
   }

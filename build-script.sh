@@ -21,6 +21,6 @@ mkdir -p "$destinationFolder"
 git rev-parse HEAD > build/buildhash.txt
 node scripts/setBuildInformation.js
 
-npm run parcel -s
+npm run vite-build -s
 
-cp -r dist/* $destinationFolder
+cp -r src/dist/* $destinationFolder

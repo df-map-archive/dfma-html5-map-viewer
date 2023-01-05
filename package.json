@@ -10,9 +10,10 @@
     "test:unit": "mocha tests/unit/*.test.js",
     "test:integration": "mocha tests/integration/*.test.js",
     "lint": "standard --fix",
-    "parcel": "parcel build src/map-viewer.js src/index.html src/fullscreen.html src/static/file.fdf-map --public-url ./",
     "build": "./build-script.sh",
-    "start": "parcel src/index.html src/fullscreen.html src/static/file.fdf-map",
+    "vite-build": "vite build",
+    "vite-preview": "vite preview",
+    "start": "vite",
     "simulate-pr": "act pull_request -P ubuntu-latest=nektos/act-environments-ubuntu:18.04"
   },
   "standard": {
@@ -66,7 +67,9 @@
   "homepage": "https://github.com/df-map-archive/dfma-html5-map-viewer#readme",
   "dependencies": {
     "p5": "^1.4.1",
-    "pako": "^2.0.4"
+    "pako": "^2.0.4",
+    "vite": "^4.0.4",
+    "vite-plugin-require": "^1.1.10"
   },
   "devDependencies": {
     "@playwright/test": "^1.21.1",
@@ -78,8 +81,6 @@
     "express": "^4.18.1",
     "jsdom": "^19.0.0",
     "mocha": "^9.2.2",
-    "parcel-bundler": "^1.12.5",
-    "parcel-plugin-static-files-copy": "^2.6.0",
     "pixelmatch": "^5.3.0",
     "playwright": "^1.21.1",
     "pngjs": "^6.0.0",

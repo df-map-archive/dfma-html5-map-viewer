@@ -120,7 +120,6 @@ export class MapData {
 
     if (this.negativeVersion >= 0) {
       this.numberOfTiles = this.negativeVersion
-      this.negativeVersion = 0
       console.log('  Number of Tiles:', this.numberOfTiles)
     } else {
       console.log('  Negative Version:', this.negativeVersion)

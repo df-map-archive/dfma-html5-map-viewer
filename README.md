@@ -12,7 +12,7 @@ Clone this repo, then run:
 npm install
 ```
 
-To start the parcel server, and view the map viewer, run:
+To start the local dev server, and view the map viewer, run:
 
 ```
 npm start
